@@ -6,6 +6,11 @@ body {
 	flex-flow: row;
 }
 
+/* Add this for Japanese characters */
+.japanese-title, body > header h1, #intro h1 {
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
 body > header {
 	text-align: center;
 }
