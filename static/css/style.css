@@ -4,11 +4,6 @@ body {
 	font-family: 'Fira Code', 'Nanum Gothic Coding', monospace;
 	display: flex;
 	flex-flow: row;
-	min-height: 100vh;
-	max-height: 100vh;
-	overflow-y: auto;
-	margin: 0;
-	padding: 0;
 }
 
 /* Add this for Japanese characters */
@@ -20,10 +15,12 @@ body > header {
 	text-align: center;
 }
 
+/* Removing vertical kanji by setting a small width */
 body > header h1 {
-	width: 1em; /* Reduced from 1.5em */
-	font-size: 8em; /* Reduced from 10em */
-	margin: 0 auto;
+	width: 0;
+	font-size: 0;
+	margin: 0;
+	visibility: hidden;
 }
 
 body > header p {
@@ -53,22 +50,17 @@ body > header p {
 }
 
 #main > footer {
-	padding-top: 20px; /* Reduced from 50px */
-	padding-bottom: 10px;
-	position: relative;
-	bottom: 0;
-	width: 100%;
+	padding-top: 50px;
 }
 
 @media (max-width: 640px) {
 	body {
 		flex-direction: column;
-		overflow-x: hidden;
 	}
 
 	body > header h1 {
-		width: auto;
-		font-size: 5em; /* Reduced from 7em */
+		width: 0;
+		font-size: 0;
 	}
 
 	#main {
@@ -128,15 +120,16 @@ hr {
 	text-align: center;
 }
 
+/* Keep the homepage kanji nice and large */
 #intro h1 {
-	font-size: 8em; /* Reduced from 10em */
+	font-size: 10em;
 	margin: 0;
 	margin-bottom: 0.2em;
 }
 
 @media (max-width: 640px) {
 	#intro h1 {
-		font-size: 5em; /* Reduced from 7em */
+		font-size: 7em;
 	}
 }
 
@@ -237,9 +230,4 @@ iframe[src*="youtube-nocookie.com"], iframe.video {
 	float: right;
 	color: gray;
 	margin: 30px 0;
-}
-
-/* Fix for any unexpected overflows */
-html, body {
-	overflow-x: hidden;
 }
