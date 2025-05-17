@@ -11,11 +11,13 @@ body {
     font-family: 'Noto Sans JP', sans-serif;
 }
 
+/* Add spacing instead of kanji, but keep the structure */
 body > header {
 	text-align: center;
+	width: 150px; /* Add fixed width to replace kanji column */
+	flex-shrink: 0; /* Prevent shrinking */
 }
 
-/* Removing vertical kanji by setting a small width */
 body > header h1 {
 	width: 0;
 	font-size: 0;
@@ -34,6 +36,7 @@ body > header p {
 	overflow: hidden;
 	display: flex;
 	flex-flow: column;
+	padding-left: 20px; /* Add padding to move content slightly right */
 }
 
 #main > nav, #main > main, #main > footer {
@@ -42,6 +45,7 @@ body > header p {
 
 #main > nav {
 	text-align: center;
+	margin-right: 50px; /* Move navigation buttons slightly right */
 }
 
 #main > main {
@@ -58,6 +62,11 @@ body > header p {
 		flex-direction: column;
 	}
 
+	body > header {
+		width: 100%; /* Full width on mobile */
+		height: 50px; /* Just some height for spacing */
+	}
+
 	body > header h1 {
 		width: 0;
 		font-size: 0;
@@ -66,6 +75,7 @@ body > header p {
 	#main {
 		display: block;
 		min-height: 0;
+		padding-left: 0; /* Remove padding on mobile */
 	}
 
 	#main > main {
@@ -137,6 +147,12 @@ hr {
 
 article > header {
 	margin-bottom: 2em;
+}
+
+article > header h1 {
+	font-size: 2em; /* Larger title size */
+	visibility: visible; /* Make sure titles are visible */
+	width: auto; /* Override the header h1 settings */
 }
 
 article > header time {
@@ -230,4 +246,12 @@ iframe[src*="youtube-nocookie.com"], iframe.video {
 	float: right;
 	color: gray;
 	margin: 30px 0;
+}
+
+/* Fix heading sizes to match Simon's site */
+h1 {
+	font-size: 2em;
+}
+h2 {
+	font-size: 1.5em;
 }
