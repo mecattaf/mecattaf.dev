@@ -1,0 +1,11 @@
+name = "Thomas"
+license = "MIT"
+description = "mecattaf.dev's theme"
+homepage = "https://mecattaf.dev"
+tags = []
+features = []
+min_version = "0.21"
+
+[author]
+  name = "Thomas Mecattaf"
+  homepage = "https://mecattaf.dev"

@@ -2,40 +2,16 @@
 title = "About me"
 +++
 
-I'm **Simon Ser**. I write open-source software.
+I'm **Thomas Mecattaf**. I'm a startup founder and open source software enthusiast with a focus on Linux and local AI.
 
-I maintain a lot of Wayland-related software ([Wayland], [Sway], [wlroots]…),
-some IRC-related software ([soju], [gamja], [goguma]…) and Go libraries ([go-imap],
-[go-smtp]…). I'm a [Mesa] and Linux [drm-misc] committer. I also help out as a
-[X.Org Foundation] Board of Directors member, Code of Conduct team member and
-sysadmin. I work on [OSRD] for my day job.
+I run several projects:
+- [statsforstartups.com](https://statsforstartups.com) - Data-driven entrepreneurship resources
+- [enoki.so](https://enoki.so) - Linux desktop environment tooling
+- [leger.run](https://leger.run) - AI SaaS focusing on local LLMs and hardware optimization
+- [agency.agency](https://agency.agency) - Open source tools for building stateful agents
 
-Most of my projects can be found [on Codeberg], [on gitlab.freedesktop.org] and
-[on GitHub]. Feel free to contact me [via email] (my PGP key is
-<a href="/.well-known/openpgpkey/hu/dj3498u4hyyarh35rkjfnghbjxug6b19" title="PGP key 34FF9526CFEF0E97A340E2E40FDE7BE0E88F5E48" download="emersion.pgp">E88F5E48</a>).
-You can also find me [on the fediverse] or [on IRC]. My talks are listed
-[on a dedicated page](/talks).
+I've worked as a venture analyst at Charge Ventures (2019-2021) where I applied data science, ML, and early AI tooling. Later, I was the first data scientist at Kumospace, a 3D spatial audio video chat company that grew rapidly during the pandemic.
 
-If you want to hire me feel free to contact me via email.
+Most of my projects can be found [on GitHub](https://github.com/tmecattaf). Feel free to contact me at [thomas@mecattaf.dev](mailto:thomas@mecattaf.dev).
 
-The source of this website is available [on sr.ht][source].
-
-[Wayland]: https://wayland.freedesktop.org/
-[Sway]: https://swaywm.org/
-[wlroots]: https://gitlab.freedesktop.org/wlroots/wlroots
-[soju]: https://soju.im
-[gamja]: https://codeberg.org/emersion/gamja
-[goguma]: https://codeberg.org/emersion/goguma
-[go-imap]: https://github.com/emersion/go-imap
-[go-smtp]: https://github.com/emersion/go-smtp
-[Mesa]: https://www.mesa3d.org/
-[drm-misc]: https://gitlab.freedesktop.org/drm/misc/kernel
-[X.Org Foundation]: https://www.x.org/wiki/XorgFoundation/
-[OSRD]: https://osrd.fr/
-[on gitlab.freedesktop.org]: https://gitlab.freedesktop.org/emersion
-[on Codeberg]: https://codeberg.org/emersion/
-[on GitHub]: https://github.com/emersion
-[via email]: mailto:contact@emersion.fr
-[on the fediverse]: https://hachyderm.io/@emersion "@emersion@hachyderm.io"
-[on IRC]: ircs://irc.libera.chat/emersion,isuser "emersion on Libera Chat"
-[source]: https://git.sr.ht/~emersion/emersion.fr
+When not coding, I enjoy exploring new tech setups, customizing my Linux environment, and experimenting with mechanical keyboards.

@@ -1,35 +1,22 @@
-baseURL = "https://emersion.fr/"
+baseURL = "https://mecattaf.dev/"
 languageCode = "en-us"
-title = "emersion"
+title = "メカタフ"
 copyright = "Creative Commons BY 3.0"
-theme = "shimong"
+theme = "thomas"
 pygmentsCodeFences = true
-
-[pagination]
-	pagerSize = 100
 
 [permalinks]
 	blog = "/blog/:year/:slug/"
 
 [params.author]
-	name = "Simon Ser"
+	name = "Thomas Mecattaf"
 
 [taxonomies]
 	tag = "tags"
 
 [outputs]
 	home = ["HTML"]
-	section = ["HTML", "RSS", "Atom"]
-
-[mediaTypes."application/atom+xml"]
-	suffixes = ["xml"]
-
-[outputFormats.RSS]
-	mediaType = "application/xml"
-	baseName = "rss"
-[outputFormats.Atom]
-	mediaType = "application/atom+xml"
-	baseName = "atom"
+	section = ["HTML"]
 
 [markup.goldmark.renderer]
 	unsafe = true

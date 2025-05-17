@@ -2,6 +2,8 @@
 title = "Talks"
 +++
 
+CHANGE THAT COMPLETELY IT'S STILL SIMON'S TALKS
+
 - [Chatting on IRC in 2025: grandpa, what's up?][fosdem-2025] (FOSDEM 2025)
 - [Things we wish we knew before starting an IMAP library][fosdem-2024] (FOSDEM 2024)
 - [Optimal buffer allocation on Wayland][fosdem-2022] (FOSDEM 2022)
