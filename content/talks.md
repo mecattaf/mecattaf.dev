@@ -3,6 +3,14 @@ title = "Talks"
 +++
 
 CHANGE THAT COMPLETELY IT'S STILL SIMON'S TALKS
+> could be interesting to mention the s4s talks given at several universities (find the dates?)
+- nyu several times
+- columbia ieor department once, invited by rene other time
+- antler, ut austin texas
+- boston university
+> aiming to do it at stanford and harvard next year
+
+SIMON has:
 
 - [Chatting on IRC in 2025: grandpa, what's up?][fosdem-2025] (FOSDEM 2025)
 - [Things we wish we knew before starting an IMAP library][fosdem-2024] (FOSDEM 2024)
