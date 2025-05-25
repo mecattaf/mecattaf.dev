@@ -20,5 +20,24 @@
 		
 		<!-- Add Google Fonts for Japanese characters -->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap">
+		
+		<!-- Theme Initialization Script - Must run before page renders to prevent FOUC -->
+		<script>
+			(function() {
+				// This function determines what theme should be active right now
+				function getEffectiveTheme() {
+					// Check if user has manually set a preference
+					const stored = localStorage.getItem('site-theme');
+					if (stored === 'light' || stored === 'dark') {
+						return stored;
+					}
+					// Default to dark mode as requested, regardless of system preference
+					return 'dark';
+				}
+				
+				// Apply the theme immediately to prevent visual flash
+				document.documentElement.setAttribute('data-theme', getEffectiveTheme());
+			})();
+		</script>
 	</head>
 	<body>
