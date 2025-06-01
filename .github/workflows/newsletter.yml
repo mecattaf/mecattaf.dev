@@ -99,10 +99,13 @@ jobs:
             
             // Prepare newsletter data
             const subject = frontMatter.title || 'New Blog Post';
-            const emailBody = emailContent;
+            const emailContent = convertMarkdownToText(content);
+            
+            // Add the title at the top of the content
+            const emailBody = `<br><br><strong>${subject}</strong><br>========================================<br><br>${emailContent}`;
             
             console.log(`📧 Subject: ${subject}`);
-            console.log(`📝 Content length: ${emailContent.length} characters`);
+            console.log(`📝 Content length: ${emailBody.length} characters`);
             
             // Send to ConvertKit
             await sendToConvertKit(subject, emailBody, isDraft);
