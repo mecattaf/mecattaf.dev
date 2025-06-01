@@ -150,13 +150,7 @@ jobs:
             .replace(/```([\w]*)\n([\s\S]*?)```/g, '<pre style="background: #f5f5f5; padding: 10px; border-radius: 4px; overflow-x: auto; margin: 10px 0;"><code>$2</code></pre>')
             // Convert inline code with styling
             .replace(/`([^`]+)`/g, '<code style="background: #f0f0f0; padding: 2px 4px; border-radius: 3px; font-family: monospace;">$1</code>')
-            // Convert bold text 
-            .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>')
-            // Convert italic text 
-            .replace(/\*([^*\n]+)\*/g, '<em>$1</em>')
-            // Convert links to proper HTML anchors with styling
-            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" style="color: #0066cc; text-decoration: underline;">$1</a>')
-            // Convert images to proper HTML with absolute URLs
+            // Convert images BEFORE links to avoid conflicts
             .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, src) => {
               // Convert relative URLs to absolute URLs for email compatibility
               let absoluteSrc = src;
@@ -171,8 +165,14 @@ jobs:
                 absoluteSrc = `https://mecattaf.dev/${src}`;
               }
               
-              return `<img src="${absoluteSrc}" alt="${alt}" style="max-width: 100%; height: auto; display: block; margin: 10px 0;" />`;
-            });
+              return `<img src="${absoluteSrc}" alt="${alt}" style="max-width: 100%; height: auto; display: block; margin: 10px 0;">`;
+            })
+            // Convert bold text 
+            .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>')
+            // Convert italic text 
+            .replace(/\*([^*\n]+)\*/g, '<em>$1</em>')
+            // Convert links to proper HTML anchors - simplified for ConvertKit
+            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
 
           // Process lists separately to handle them properly
           const lines = content.split('\n');
@@ -251,11 +251,16 @@ jobs:
             throw new Error('ConvertKit API credentials not found');
           }
           
-          // Create broadcast
+          // Log the content for debugging
+          console.log('📝 Email content being sent:');
+          console.log(content.substring(0, 500) + '...');
+          
+          // Create broadcast with proper content type
           const broadcastData = {
             api_secret: apiSecret,
             subject: subject,
             content: content,
+            content_type: 'html', // Explicitly specify HTML content type
             description: `Newsletter: ${subject}`,
             public: !isDraft  // If draft, don't make public yet
           };
