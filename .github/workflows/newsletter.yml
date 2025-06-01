@@ -1,0 +1,191 @@
+name: Newsletter Automation
+
+on:
+  push:
+    branches: [ main ]
+    paths: [ 'content/blog/**' ]
+
+jobs:
+  newsletter:
+    runs-on: ubuntu-latest
+    
+    # Only run if commit message contains [Newsletter] or [Draft]
+    if: contains(github.event.head_commit.message, '[Newsletter]') || contains(github.event.head_commit.message, '[Draft]')
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 2  # Need previous commit to detect changes
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+    
+    - name: Install dependencies
+      run: |
+        npm install axios gray-matter
+    
+    - name: Process blog post and send newsletter
+      env:
+        CONVERTKIT_API_KEY: ${{ secrets.CONVERTKIT_API_KEY }}
+        CONVERTKIT_API_SECRET: ${{ secrets.CONVERTKIT_API_SECRET }}
+      run: |
+        cat > newsletter-processor.js << 'EOF'
+        const fs = require('fs');
+        const path = require('path');
+        const axios = require('axios');
+        const matter = require('gray-matter');
+
+        async function main() {
+          try {
+            console.log('🚀 Starting newsletter automation...');
+            
+            // Check commit message for action type
+            const commitMessage = process.env.GITHUB_EVENT_HEAD_COMMIT_MESSAGE || '';
+            const isDraft = commitMessage.includes('[Draft]');
+            const isNewsletter = commitMessage.includes('[Newsletter]');
+            
+            if (!isDraft && !isNewsletter) {
+              console.log('❌ No newsletter trigger found in commit message');
+              return;
+            }
+            
+            console.log(`📝 Mode: ${isDraft ? 'Draft' : 'Send Newsletter'}`);
+            
+            // Find the most recently modified blog post
+            const blogDir = 'content/blog';
+            const blogFiles = fs.readdirSync(blogDir)
+              .filter(file => file.endsWith('.md'))
+              .map(file => {
+                const filePath = path.join(blogDir, file);
+                const stats = fs.statSync(filePath);
+                return { file, path: filePath, mtime: stats.mtime };
+              })
+              .sort((a, b) => b.mtime - a.mtime);
+            
+            if (blogFiles.length === 0) {
+              console.log('❌ No blog posts found');
+              return;
+            }
+            
+            const latestPost = blogFiles[0];
+            console.log(`📄 Processing: ${latestPost.file}`);
+            
+            // Parse the blog post
+            const fileContent = fs.readFileSync(latestPost.path, 'utf8');
+            const { data: frontMatter, content } = matter(fileContent);
+            
+            // Convert markdown to plain text for email
+            const emailContent = convertMarkdownToText(content);
+            
+            // Prepare newsletter data
+            const subject = frontMatter.title || 'New Blog Post';
+            const emailBody = emailContent;
+            
+            console.log(`📧 Subject: ${subject}`);
+            console.log(`📝 Content length: ${emailContent.length} characters`);
+            
+            // Send to ConvertKit
+            await sendToConvertKit(subject, emailBody, isDraft);
+            
+          } catch (error) {
+            console.error('❌ Error:', error.message);
+            process.exit(1);
+          }
+        }
+
+        function convertMarkdownToText(markdown) {
+          return markdown
+            // Remove Hugo shortcodes
+            .replace(/\{\{[^}]+\}\}/g, '')
+            // Convert headers to plain text with emphasis
+            .replace(/^#{1,6}\s+(.+)$/gm, '\n$1\n' + '='.repeat(40))
+            // Convert bold text
+            .replace(/\*\*([^*]+)\*\*/g, '$1')
+            // Convert italic text  
+            .replace(/\*([^*]+)\*/g, '$1')
+            // Convert links to "text (url)" format
+            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1 ($2)')
+            // Convert code blocks to indented text
+            .replace(/```[\s\S]*?```/g, (match) => {
+              return match.replace(/```\w*\n?/g, '').split('\n').map(line => '    ' + line).join('\n');
+            })
+            // Convert inline code
+            .replace(/`([^`]+)`/g, '$1')
+            // Clean up multiple newlines
+            .replace(/\n{3,}/g, '\n\n')
+            // Trim whitespace
+            .trim();
+        }
+
+        async function sendToConvertKit(subject, content, isDraft) {
+          const apiKey = process.env.CONVERTKIT_API_KEY;
+          const apiSecret = process.env.CONVERTKIT_API_SECRET;
+          
+          if (!apiKey || !apiSecret) {
+            throw new Error('ConvertKit API credentials not found');
+          }
+          
+          // Create broadcast
+          const broadcastData = {
+            api_secret: apiSecret,
+            subject: subject,
+            content: content,
+            description: `Newsletter: ${subject}`,
+            public: !isDraft  // If draft, don't make public yet
+          };
+          
+          console.log('📤 Creating broadcast in ConvertKit...');
+          
+          const response = await axios.post(
+            `https://api.convertkit.com/v3/broadcasts?api_key=${apiKey}`,
+            broadcastData,
+            {
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            }
+          );
+          
+          const broadcastId = response.data.broadcast.id;
+          console.log(`✅ Broadcast created with ID: ${broadcastId}`);
+          
+          if (!isDraft) {
+            // Send the broadcast immediately
+            console.log('📬 Sending newsletter...');
+            
+            await axios.post(
+              `https://api.convertkit.com/v3/broadcasts/${broadcastId}/send?api_key=${apiKey}`,
+              { api_secret: apiSecret },
+              {
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              }
+            );
+            
+            console.log('🎉 Newsletter sent successfully!');
+          } else {
+            console.log('📝 Draft created in ConvertKit for review');
+            console.log(`🔗 Review at: https://app.convertkit.com/broadcasts/${broadcastId}`);
+          }
+        }
+
+        // Add commit message to environment
+        const { execSync } = require('child_process');
+        try {
+          const commitMsg = execSync('git log -1 --pretty=%B', { encoding: 'utf8' }).trim();
+          process.env.GITHUB_EVENT_HEAD_COMMIT_MESSAGE = commitMsg;
+        } catch (e) {
+          console.log('Could not get commit message, using GitHub event');
+        }
+
+        main();
+        EOF
+        
+        node newsletter-processor.js
+    
+    - name: Cleanup
+      run: rm -f newsletter-processor.js

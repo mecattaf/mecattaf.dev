@@ -186,7 +186,7 @@ hr {
 }
 
 [data-theme="light"] p code, [data-theme="light"] li code {
-	color: #930d72;
+	color: #EB6A6A;
 }
 
 [data-theme="light"] kbd {
@@ -197,7 +197,7 @@ hr {
 
 /* Dark mode specific styling that your original CSS had */
 [data-theme="dark"] p code, [data-theme="dark"] li code {
-	color: #f200b7;
+	color: #EB6A6B;
 }
 
 [data-theme="dark"] kbd {
@@ -261,7 +261,7 @@ pre {
 }
 
 p code, li code {
-	color: #930d72;
+	color: #EB6A6A;
 }
 
 a, a:visited {
