@@ -1,5 +1,5 @@
 +++
-date = "2025-05-17T00:00:00+02:00"
+date = "2025-06-01T00:00:00+02:00"
 title = "Hello World"
 slug = "hello-world"
 lang = "en"
@@ -10,12 +10,10 @@ Hello! This is my personal blog and website where I'll be sharing my thoughts on
 
 ## A bit about me
 
-I'm a startup founder and open source software enthusiast. I've worked as a venture analyst at Charge Ventures where I applied data science, ML, and early AI tooling, and was the first data scientist at Kumospace, a 3D spatial audio video chat company.
+I'm a startup founder and open source software enthusiast. I've worked as a venture analyst at Charge Ventures where I applied data science, ML, and early AI tooling. I was the first data scientist at Kumospace, a 3D spatial audio video chat company. I started my first company Enoki Inc. (Antler Austin S22) which got a small exit. 
 
-I currently run several projects:
+I currently run Leger Labs, Inc. where we work on:
 
-- **statsforstartups.com**: Data-driven entrepreneurship resources
-- **enoki.so**: Linux desktop environment tooling
 - **leger.run**: AI SaaS focusing on local LLMs
 - **agency.agency**: Open source tools for building stateful agents
 
@@ -23,8 +21,8 @@ I currently run several projects:
 
 I'll be documenting my journey with:
 
-- My Linux desktop setup (from "Zen" to Enoki OS)
-- Dotfiles and productivity tools
+- Building the Leger product
+- My Linux desktop setup, dotfiles and productivity tools
 - Thoughts on data-driven entrepreneurship
 - Open source contributions
 - Book recommendations

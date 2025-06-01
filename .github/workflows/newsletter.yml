@@ -54,10 +54,10 @@ jobs:
             
             console.log(`📝 Mode: ${isDraft ? 'Draft' : 'Send Newsletter'}`);
             
-            // Find the most recently modified blog post
+            // Find the most recently modified blog post (excluding files starting with _)
             const blogDir = 'content/blog';
             const blogFiles = fs.readdirSync(blogDir)
-              .filter(file => file.endsWith('.md'))
+              .filter(file => file.endsWith('.md') && !file.startsWith('_'))
               .map(file => {
                 const filePath = path.join(blogDir, file);
                 const stats = fs.statSync(filePath);
@@ -73,9 +73,26 @@ jobs:
             const latestPost = blogFiles[0];
             console.log(`📄 Processing: ${latestPost.file}`);
             
-            // Parse the blog post
+            // Parse the blog post (Hugo uses TOML frontmatter with +++)
             const fileContent = fs.readFileSync(latestPost.path, 'utf8');
-            const { data: frontMatter, content } = matter(fileContent);
+            
+            let frontMatter = {};
+            let content = fileContent;
+            
+            // Parse TOML frontmatter manually since gray-matter expects YAML by default
+            const frontMatterMatch = fileContent.match(/^\+\+\+\n([\s\S]*?)\n\+\+\+\n([\s\S]*)$/);
+            if (frontMatterMatch) {
+              const frontMatterText = frontMatterMatch[1];
+              content = frontMatterMatch[2];
+              
+              // Simple TOML parser for the fields we need
+              frontMatterText.split('\n').forEach(line => {
+                const match = line.match(/^(\w+)\s*=\s*"([^"]*)"$/);
+                if (match) {
+                  frontMatter[match[1]] = match[2];
+                }
+              });
+            }
             
             // Convert markdown to plain text for email
             const emailContent = convertMarkdownToText(content);
@@ -98,24 +115,37 @@ jobs:
 
         function convertMarkdownToText(markdown) {
           return markdown
+            // Remove Hugo comments
+            .replace(/<!--[\s\S]*?-->/g, '')
             // Remove Hugo shortcodes
             .replace(/\{\{[^}]+\}\}/g, '')
-            // Convert headers to plain text with emphasis
-            .replace(/^#{1,6}\s+(.+)$/gm, '\n$1\n' + '='.repeat(40))
-            // Convert bold text
+            // Convert headers to clean text with proper spacing
+            .replace(/^#{1}\s+(.+)$/gm, '\n$1\n' + '='.repeat(50) + '\n')
+            .replace(/^#{2}\s+(.+)$/gm, '\n$1\n' + '-'.repeat(30) + '\n')
+            .replace(/^#{3,6}\s+(.+)$/gm, '\n$1:\n')
+            // Convert bold text (keep emphasis)
             .replace(/\*\*([^*]+)\*\*/g, '$1')
-            // Convert italic text  
+            // Convert italic text (keep emphasis)
             .replace(/\*([^*]+)\*/g, '$1')
-            // Convert links to "text (url)" format
-            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1 ($2)')
-            // Convert code blocks to indented text
+            // Convert links to clean "text: url" format
+            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1: $2')
+            // Convert reference-style links at the bottom
+            .replace(/^\[([^\]]+)\]:\s*(.+)$/gm, '$1: $2')
+            // Convert code blocks to indented text with clear separation
             .replace(/```[\s\S]*?```/g, (match) => {
-              return match.replace(/```\w*\n?/g, '').split('\n').map(line => '    ' + line).join('\n');
+              const code = match.replace(/```\w*\n?/g, '').replace(/```/g, '');
+              return '\n' + code.split('\n').map(line => '    ' + line).join('\n') + '\n';
             })
-            // Convert inline code
+            // Convert inline code (remove backticks)
             .replace(/`([^`]+)`/g, '$1')
-            // Clean up multiple newlines
-            .replace(/\n{3,}/g, '\n\n')
+            // Clean up list formatting
+            .replace(/^[\s]*[-*+]\s+/gm, '• ')
+            .replace(/^[\s]*\d+\.\s+/gm, '• ')
+            // Remove HTML tags
+            .replace(/<[^>]*>/g, '')
+            // Clean up excessive whitespace
+            .replace(/\n{4,}/g, '\n\n\n')
+            .replace(/[ \t]+$/gm, '') // Remove trailing spaces
             // Trim whitespace
             .trim();
         }
