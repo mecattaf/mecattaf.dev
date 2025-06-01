@@ -94,18 +94,17 @@ jobs:
               });
             }
             
-            // Convert markdown to plain text for email
-            const emailContent = convertMarkdownToText(content);
+            // Convert markdown to HTML for email
+            const emailContent = convertMarkdownToHTML(content, frontMatter.title || 'New Blog Post');
             
             // Prepare newsletter data
             const subject = frontMatter.title || 'New Blog Post';
-            const emailBody = emailContent;
             
             console.log(`📧 Subject: ${subject}`);
             console.log(`📝 Content length: ${emailContent.length} characters`);
             
             // Send to ConvertKit
-            await sendToConvertKit(subject, emailBody, isDraft);
+            await sendToConvertKit(subject, emailContent, isDraft);
             
           } catch (error) {
             console.error('❌ Error:', error.message);
@@ -113,47 +112,62 @@ jobs:
           }
         }
 
-        function convertMarkdownToText(markdown) {
-          return markdown
+        function convertMarkdownToHTML(markdown, title) {
+          // Start with the title as H1
+          let html = `<h1>${title}</h1>\n\n`;
+          
+          return html + markdown
             // Remove Hugo comments
             .replace(/<!--[\s\S]*?-->/g, '')
             // Remove Hugo shortcodes
             .replace(/\{\{[^}]+\}\}/g, '')
-            // Convert headers to clean text with HTML line breaks
-            .replace(/^#{1}\s+(.+)$/gm, '<br><br><strong>$1</strong><br>========================================<br><br>')
-            .replace(/^#{2}\s+(.+)$/gm, '<br><br><strong>$1</strong><br>-------------------------<br><br>')
-            .replace(/^#{3,6}\s+(.+)$/gm, '<br><br><strong>$1:</strong><br><br>')
+            // Convert headers (# becomes h2, ## becomes h3, etc.)
+            .replace(/^#{1}\s+(.+)$/gm, '<h2>$1</h2>')
+            .replace(/^#{2}\s+(.+)$/gm, '<h3>$1</h3>')
+            .replace(/^#{3}\s+(.+)$/gm, '<h4>$1</h4>')
+            .replace(/^#{4}\s+(.+)$/gm, '<h5>$1</h5>')
+            .replace(/^#{5,6}\s+(.+)$/gm, '<h6>$1</h6>')
+            // Convert code blocks to proper HTML
+            .replace(/```([\w]*)\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>')
+            // Convert inline code
+            .replace(/`([^`]+)`/g, '<code>$1</code>')
             // Convert bold text 
-            .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+            .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>')
             // Convert italic text 
-            .replace(/\*([^*]+)\*/g, '<em>$1</em>')
-            // Convert links to clean format
-            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1 ($2)')
-            // Convert reference-style links at the bottom
-            .replace(/^\[([^\]]+)\]:\s*(.+)$/gm, '$1: $2')
-            // Convert code blocks to indented text with clear separation
-            .replace(/```[\s\S]*?```/g, (match) => {
-              const code = match.replace(/```\w*\n?/g, '').replace(/```/g, '');
-              return '<br><br>' + code.split('\n').map(line => '&nbsp;&nbsp;&nbsp;&nbsp;' + line).join('<br>') + '<br><br>';
+            .replace(/\*([^*\n]+)\*/g, '<em>$1</em>')
+            // Convert links to proper HTML anchors
+            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+            // Convert unordered lists
+            .replace(/^[\s]*[-*+]\s+(.+)$/gm, '<li>$1</li>')
+            // Wrap consecutive list items in ul tags
+            .replace(/(<li>.*<\/li>)/gs, (match) => {
+              const items = match.split('</li>').filter(item => item.trim()).map(item => item + '</li>');
+              return '<ul>\n' + items.join('\n') + '\n</ul>';
             })
-            // Convert inline code (remove backticks)
-            .replace(/`([^`]+)`/g, '$1')
-            // Convert lists to properly spaced bullet points with HTML breaks
-            .replace(/^[\s]*[-*+]\s+(.+)$/gm, '<br>• $1')
-            .replace(/^[\s]*\d+\.\s+(.+)$/gm, '<br>• $1')
-            // Remove any remaining HTML tags we don't want
-            .replace(/<(?!br|strong|em|\/strong|\/em)[^>]*>/g, '')
-            // Split paragraphs and join with HTML breaks
+            // Convert ordered lists
+            .replace(/^[\s]*\d+\.\s+(.+)$/gm, '<li>$1</li>')
+            // Fix any double ul/ol wrapping that might have occurred
+            .replace(/<\/ul>\s*<ul>/g, '')
+            .replace(/<\/ol>\s*<ol>/g, '')
+            // Convert paragraphs - split by double newlines and wrap in p tags
             .split(/\n\s*\n/)
-            .map(paragraph => paragraph.trim().replace(/\n/g, ' '))
-            .filter(paragraph => paragraph.length > 0)
-            .join('<br><br>')
-            // Clean up any remaining newlines
-            .replace(/\n+/g, ' ')
-            // Clean up excessive breaks
-            .replace(/(<br>){4,}/g, '<br><br><br>')
-            .replace(/[ \t]+/g, ' ') // Normalize spaces
-            // Trim whitespace
+            .map(paragraph => {
+              paragraph = paragraph.trim();
+              // Skip if it's already wrapped in HTML tags or empty
+              if (!paragraph || 
+                  paragraph.match(/^<(h[1-6]|ul|ol|pre|blockquote|div)/i) ||
+                  paragraph.match(/<\/(h[1-6]|ul|ol|pre|blockquote|div)>$/i)) {
+                return paragraph;
+              }
+              // Don't wrap standalone list items
+              if (paragraph.match(/^<li>.*<\/li>$/)) {
+                return paragraph;
+              }
+              return `<p>${paragraph}</p>`;
+            })
+            .join('\n\n')
+            // Clean up extra whitespace
+            .replace(/\n{3,}/g, '\n\n')
             .trim();
         }
 
