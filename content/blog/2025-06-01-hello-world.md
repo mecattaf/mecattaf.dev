@@ -27,4 +27,4 @@ I'll be documenting my journey with:
 - Open source contributions
 - Book recommendations
 
-Stay tuned for more updates as I build this site out further.
+Stay tuned for more updates!
