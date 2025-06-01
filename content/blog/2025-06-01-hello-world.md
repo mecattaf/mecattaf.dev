@@ -25,4 +25,4 @@ I'll be documenting my journey with:
 
 Stay tuned for more updates!
 
-T
+Thomas
