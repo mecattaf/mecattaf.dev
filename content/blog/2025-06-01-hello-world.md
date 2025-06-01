@@ -14,8 +14,8 @@ I'm a startup founder and open source software enthusiast. I've worked as a vent
 
 I currently run Leger Labs, Inc. where we work on:
 
-- **leger.run**: AI SaaS focusing on local LLMs
-- **agency.agency**: Open source tools for building stateful agents
+- **[leger.run](https://www.leger.run)**: AI SaaS focusing on local LLMs
+- **[agency.agency](https://www.agency.agency)**: Open source tools for building stateful agents
 
 ## What to expect
 
