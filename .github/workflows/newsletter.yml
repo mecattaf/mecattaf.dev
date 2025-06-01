@@ -130,33 +130,32 @@ jobs:
             blogUrl += `${year}/${slug}/`;
           }
           
-          // Start with a container that constrains width for readability
-          // Most email clients respect max-width, creating the narrow column effect
-          let html = '<div style="max-width: 600px; margin: 0 auto;">';
+          // ConvertKit expects clean HTML that integrates with their template's CSS classes
+          // No wrapper div needed - ConvertKit's template handles width constraints
+          let html = '';
           
-          // Add the title as H1 with link - let ConvertKit style it
+          // Add the title as H1 - ConvertKit's template will style it properly
           html += `<h1><a href="${blogUrl}" target="_blank" rel="noopener">${title}</a></h1>\n\n`;
           
-          // Process the markdown content - clean semantic HTML only
+          // Process the markdown content - semantic HTML that ConvertKit's CSS will style
           let content = markdown
             // Remove Hugo comments
             .replace(/<!--[\s\S]*?-->/g, '')
             // Remove Hugo shortcodes
             .replace(/\{\{[^}]+\}\}/g, '')
-            // Convert headers - add minimal styling to ensure visual hierarchy
-            .replace(/^#{1}\s+(.+)$/gm, '<h2 style="font-size: 1.5em; margin-top: 1.5em; margin-bottom: 0.5em;">$1</h2>')
-            .replace(/^#{2}\s+(.+)$/gm, '<h3 style="font-size: 1.3em; margin-top: 1.3em; margin-bottom: 0.5em;">$1</h3>')
-            .replace(/^#{3}\s+(.+)$/gm, '<h4 style="font-size: 1.1em; margin-top: 1.1em; margin-bottom: 0.5em;">$1</h4>')
-            .replace(/^#{4}\s+(.+)$/gm, '<h5 style="font-size: 1em; margin-top: 1em; margin-bottom: 0.5em;">$1</h5>')
-            .replace(/^#{5,6}\s+(.+)$/gm, '<h6 style="font-size: 0.9em; margin-top: 1em; margin-bottom: 0.5em;">$1</h6>')
-            // Convert code blocks - minimal styling for readability
+            // Convert headers - use semantic tags without any styling
+            .replace(/^#{1}\s+(.+)$/gm, '<h2>$1</h2>')
+            .replace(/^#{2}\s+(.+)$/gm, '<h3>$1</h3>')
+            .replace(/^#{3}\s+(.+)$/gm, '<h4>$1</h4>')
+            .replace(/^#{4}\s+(.+)$/gm, '<h5>$1</h5>')
+            .replace(/^#{5,6}\s+(.+)$/gm, '<h6>$1</h6>')
+            // Convert code blocks - minimal styling that doesn't conflict with ConvertKit
             .replace(/```([\w]*)\n([\s\S]*?)```/g, function(match, lang, code) {
-              return '<pre style="background-color: #f5f5f5; padding: 12px; border-radius: 4px; overflow-x: auto;"><code>' + 
-                     escapeHtml(code.trim()) + 
-                     '</code></pre>';
+              // Use ConvertKit-friendly styling
+              return '<pre><code>' + escapeHtml(code.trim()) + '</code></pre>';
             })
-            // Convert inline code - minimal styling
-            .replace(/`([^`]+)`/g, '<code style="background-color: #f5f5f5; padding: 2px 4px; border-radius: 3px;">$1</code>')
+            // Convert inline code
+            .replace(/`([^`]+)`/g, '<code>$1</code>')
             // Convert images BEFORE links to avoid conflicts
             .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
               // Convert relative URLs to absolute URLs for email compatibility
@@ -176,8 +175,8 @@ jobs:
                 absoluteSrc = `https://mecattaf.dev/${src}`;
               }
               
-              // Simple image tag - let ConvertKit handle the styling
-              return `<img src="${absoluteSrc}" alt="${alt}" style="max-width: 100%; height: auto;">`;
+              // Let ConvertKit handle image styling
+              return `<img src="${absoluteSrc}" alt="${alt}">`;
             })
             // Convert bold text 
             .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>')
@@ -199,15 +198,14 @@ jobs:
                 }
               }
               
-              return `<a href="${cleanUrl}" target="_blank" rel="noopener">${linkText}</a>`;
+              return `<a href="${cleanUrl}">${linkText}</a>`;
             });
 
-          // Process lists separately - clean semantic HTML
+          // Process lists separately
           const lines = content.split('\n');
           const processedLines = [];
           let inList = false;
           let listItems = [];
-          let listIndentLevel = 0;
 
           for (let i = 0; i < lines.length; i++) {
             const line = lines[i];
@@ -215,19 +213,17 @@ jobs:
             
             if (listMatch) {
               const [, indent, itemContent] = listMatch;
-              const currentIndentLevel = indent.length;
               
               if (!inList) {
                 inList = true;
                 listItems = [];
-                listIndentLevel = currentIndentLevel;
               }
               
               listItems.push(`<li>${itemContent}</li>`);
             } else {
               if (inList) {
-                // End of list, wrap it with clean ul tag
-                processedLines.push(`<ul>\n${listItems.join('\n')}\n</ul>`);
+                // End of list
+                processedLines.push(`<ul>${listItems.join('')}</ul>`);
                 inList = false;
                 listItems = [];
               }
@@ -237,40 +233,41 @@ jobs:
 
           // Don't forget the last list if the content ends with one
           if (inList) {
-            processedLines.push(`<ul>\n${listItems.join('\n')}\n</ul>`);
+            processedLines.push(`<ul>${listItems.join('')}</ul>`);
           }
 
           // Join lines back and process paragraphs
           content = processedLines.join('\n');
 
           // Convert paragraphs - clean semantic HTML
-          const paragraphs = content.split(/\n\s*\n/);
-          const processedParagraphs = paragraphs.map(paragraph => {
-            paragraph = paragraph.trim();
+          const sections = content.split(/\n\s*\n/);
+          const processedSections = [];
+          
+          for (const section of sections) {
+            const trimmedSection = section.trim();
             
             // Skip if empty
-            if (!paragraph) {
-              return '';
+            if (!trimmedSection) {
+              continue;
             }
             
-            // Skip if it's already wrapped in HTML tags
-            if (paragraph.match(/^<(h[1-6]|ul|ol|pre|blockquote|div|p|li)/i)) {
-              return paragraph;
+            // Skip if it's already an HTML block element
+            if (trimmedSection.match(/^<(h[1-6]|ul|ol|pre|blockquote|div|p|table|hr)/i)) {
+              processedSections.push(trimmedSection);
+              continue;
             }
             
-            // Don't wrap single lines that are just HTML tags
-            if (paragraph.match(/^<\/?(h[1-6]|ul|ol|pre|blockquote|div)>/i)) {
-              return paragraph;
+            // Skip if it's a closing tag
+            if (trimmedSection.match(/^<\//)) {
+              continue;
             }
             
-            // Wrap in clean paragraph tags
-            return `<p>${paragraph}</p>`;
-          }).filter(p => p !== '');
+            // Wrap text content in paragraph tags
+            processedSections.push(`<p>${trimmedSection}</p>`);
+          }
 
-          // Close the container and return
-          html += processedParagraphs.join('\n\n') + '\n</div>';
-          
-          return html;
+          // Return clean HTML without any wrapper
+          return html + processedSections.join('\n\n');
         }
 
         // Helper function to escape HTML in code blocks
