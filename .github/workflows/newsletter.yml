@@ -140,16 +140,16 @@ jobs:
             .replace(/<!--[\s\S]*?-->/g, '')
             // Remove Hugo shortcodes
             .replace(/\{\{[^}]+\}\}/g, '')
-            // Convert headers with inline styles for better email rendering
-            .replace(/^#{1}\s+(.+)$/gm, '<h2 style="font-size: 24px; font-weight: bold; margin: 20px 0 10px 0; color: #333; font-family: inherit;">$1</h2>')
-            .replace(/^#{2}\s+(.+)$/gm, '<h3 style="font-size: 20px; font-weight: bold; margin: 18px 0 8px 0; color: #333; font-family: inherit;">$1</h3>')
-            .replace(/^#{3}\s+(.+)$/gm, '<h4 style="font-size: 18px; font-weight: bold; margin: 16px 0 6px 0; color: #333; font-family: inherit;">$1</h4>')
-            .replace(/^#{4}\s+(.+)$/gm, '<h5 style="font-size: 16px; font-weight: bold; margin: 14px 0 4px 0; color: #333; font-family: inherit;">$1</h5>')
-            .replace(/^#{5,6}\s+(.+)$/gm, '<h6 style="font-size: 14px; font-weight: bold; margin: 12px 0 2px 0; color: #333; font-family: inherit;">$1</h6>')
-            // Convert code blocks to proper HTML with styling
-            .replace(/```([\w]*)\n([\s\S]*?)```/g, '<pre style="background: #f5f5f5; padding: 10px; border-radius: 4px; overflow-x: auto; margin: 10px 0;"><code>$2</code></pre>')
-            // Convert inline code with styling
-            .replace(/`([^`]+)`/g, '<code style="background: #f0f0f0; padding: 2px 4px; border-radius: 3px; font-family: monospace;">$1</code>')
+            // Convert headers with minimal styling
+            .replace(/^#{1}\s+(.+)$/gm, '<h2>$1</h2>')
+            .replace(/^#{2}\s+(.+)$/gm, '<h3>$1</h3>')
+            .replace(/^#{3}\s+(.+)$/gm, '<h4>$1</h4>')
+            .replace(/^#{4}\s+(.+)$/gm, '<h5>$1</h5>')
+            .replace(/^#{5,6}\s+(.+)$/gm, '<h6>$1</h6>')
+            // Convert code blocks with minimal styling
+            .replace(/```([\w]*)\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>')
+            // Convert inline code with minimal styling
+            .replace(/`([^`]+)`/g, '<code>$1</code>')
             // Convert images BEFORE links to avoid conflicts
             .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, src) => {
               // Convert relative URLs to absolute URLs for email compatibility
@@ -208,7 +208,7 @@ jobs:
               }
               const match = line.match(/^[\s]*[-*+]\s+(.+)$/);
               if (match) {
-                listItems.push('<li style="margin: 5px 0; padding-left: 5px; font-size: 16px; font-family: inherit; line-height: 1.6;">' + match[1] + '</li>');
+                listItems.push('<li>' + match[1] + '</li>');
               }
             } else {
               if (inList) {
@@ -227,7 +227,7 @@ jobs:
 
           // Don't forget the last list if the content ends with one
           if (inList) {
-            processedLines.push('<ul style="margin: 10px 0; padding-left: 20px; font-size: 16px; font-family: inherit; line-height: 1.6;">\n' + listItems.join('\n') + '\n</ul>');
+            processedLines.push('<ul>\n' + listItems.join('\n') + '\n</ul>');
           }
 
           // Join lines back and process paragraphs
@@ -253,11 +253,11 @@ jobs:
               return paragraph;
             }
             
-            // Wrap in paragraph tags with styling
-            return '<p style="margin: 10px 0; line-height: 1.6; font-size: 16px; font-family: inherit;">' + paragraph + '</p>';
+            // Wrap in paragraph tags with minimal styling
+            return '<p>' + paragraph + '</p>';
           }).filter(p => p !== '');
 
-          return html + processedParagraphs.join('\n\n') + '\n</td></tr></table>';
+          return html + processedParagraphs.join('\n\n') + '\n</div>';
         }
 
         async function sendToConvertKit(subject, content, isDraft) {
@@ -269,10 +269,11 @@ jobs:
           }
           
           // Log the content for debugging (more detailed)
-          console.log('📝 Email content being sent (first 800 chars):');
-          console.log(content.substring(0, 800));
-          console.log('📝 Email content (last 200 chars):');
-          console.log(content.substring(Math.max(0, content.length - 200)));
+          console.log('📝 Email content being sent (first 1200 chars):');
+          console.log(content.substring(0, 1200));
+          console.log('📝 Email content (last 400 chars):');
+          console.log(content.substring(Math.max(0, content.length - 400)));
+          console.log('📝 Full content length:', content.length);
           
           // Create broadcast with proper content type
           const broadcastData = {
