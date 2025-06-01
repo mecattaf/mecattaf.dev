@@ -132,7 +132,7 @@ jobs:
           }
           
           // Start with the title as H1 with proper styling and hyperlink
-          let html = `<h1 style="font-size: 28px; font-weight: bold; margin: 20px 0; color: #333;"><a href="${blogUrl}" target="_blank" rel="noopener">${title}</a></h1>\n\n`;">${title}</a></h1>\n\n`;
+          let html = '<h1 style="font-size: 28px; font-weight: bold; margin: 20px 0; color: #333;"><a href="' + blogUrl + '" target="_blank" rel="noopener">' + title + '</a></h1>\n\n';
           
           // Process the markdown content
           let content = markdown
@@ -268,9 +268,11 @@ jobs:
             throw new Error('ConvertKit API credentials not found');
           }
           
-          // Log the content for debugging
-          console.log('📝 Email content being sent:');
-          console.log(content.substring(0, 500) + '...');
+          // Log the content for debugging (more detailed)
+          console.log('📝 Email content being sent (first 800 chars):');
+          console.log(content.substring(0, 800));
+          console.log('📝 Email content (last 200 chars):');
+          console.log(content.substring(Math.max(0, content.length - 200)));
           
           // Create broadcast with proper content type
           const broadcastData = {
