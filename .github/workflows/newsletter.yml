@@ -119,40 +119,39 @@ jobs:
             .replace(/<!--[\s\S]*?-->/g, '')
             // Remove Hugo shortcodes
             .replace(/\{\{[^}]+\}\}/g, '')
-            // Convert headers to clean text with proper spacing
-            .replace(/^#{1}\s+(.+)$/gm, '\n$1\n' + '='.repeat(50) + '\n')
-            .replace(/^#{2}\s+(.+)$/gm, '\n\n$1\n' + '-'.repeat(30) + '\n')
-            .replace(/^#{3,6}\s+(.+)$/gm, '\n\n$1:\n')
+            // Convert headers to clean text with proper spacing using \r\n
+            .replace(/^#{1}\s+(.+)$/gm, '\r\n\r\n$1\r\n' + '='.repeat(40) + '\r\n\r\n')
+            .replace(/^#{2}\s+(.+)$/gm, '\r\n\r\n$1\r\n' + '-'.repeat(25) + '\r\n\r\n')
+            .replace(/^#{3,6}\s+(.+)$/gm, '\r\n\r\n$1:\r\n\r\n')
             // Convert bold text (keep emphasis)
             .replace(/\*\*([^*]+)\*\*/g, '$1')
             // Convert italic text (keep emphasis)
             .replace(/\*([^*]+)\*/g, '$1')
-            // Convert links to clean "text: url" format
-            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1: $2')
+            // Convert links to clean format on separate lines
+            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1 ($2)')
             // Convert reference-style links at the bottom
             .replace(/^\[([^\]]+)\]:\s*(.+)$/gm, '$1: $2')
             // Convert code blocks to indented text with clear separation
             .replace(/```[\s\S]*?```/g, (match) => {
               const code = match.replace(/```\w*\n?/g, '').replace(/```/g, '');
-              return '\n\n' + code.split('\n').map(line => '    ' + line).join('\n') + '\n\n';
+              return '\r\n\r\n' + code.split('\n').map(line => '    ' + line).join('\r\n') + '\r\n\r\n';
             })
             // Convert inline code (remove backticks)
             .replace(/`([^`]+)`/g, '$1')
-            // Convert lists to properly spaced bullet points
-            .replace(/^[\s]*[-*+]\s+(.+)$/gm, '\n• $1')
-            .replace(/^[\s]*\d+\.\s+(.+)$/gm, '\n• $1')
+            // Convert lists to properly spaced bullet points with explicit line breaks
+            .replace(/^[\s]*[-*+]\s+(.+)$/gm, '\r\n• $1\r\n')
+            .replace(/^[\s]*\d+\.\s+(.+)$/gm, '\r\n• $1\r\n')
             // Remove HTML tags
             .replace(/<[^>]*>/g, '')
-            // Add proper paragraph spacing - split on double newlines and rejoin with more space
-            .split('\n\n')
-            .map(paragraph => paragraph.trim())
+            // Split paragraphs and join with explicit double line breaks
+            .split(/\n\s*\n/)
+            .map(paragraph => paragraph.trim().replace(/\n/g, ' '))
             .filter(paragraph => paragraph.length > 0)
-            .join('\n\n')
-            // Ensure proper spacing after headers
-            .replace(/={30,}\n/g, '='.repeat(50) + '\n\n')
-            .replace(/-{20,}\n/g, '-'.repeat(30) + '\n\n')
-            // Clean up excessive whitespace but preserve intentional spacing
-            .replace(/\n{4,}/g, '\n\n\n')
+            .join('\r\n\r\n')
+            // Clean up any remaining newlines and replace with \r\n
+            .replace(/\n+/g, '\r\n')
+            // Clean up excessive line breaks
+            .replace(/(\r\n){4,}/g, '\r\n\r\n\r\n')
             .replace(/[ \t]+$/gm, '') // Remove trailing spaces
             // Trim whitespace
             .trim();
