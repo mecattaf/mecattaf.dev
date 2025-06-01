@@ -21,6 +21,6 @@ I'll be documenting my journey with:
 - My Linux desktop setup, dotfiles and productivity tools
 - Thoughts on data-driven entrepreneurship
 
-![img](https://imagedelivery.net/qNOPexKG0LNTBq80SlqDOw/a79b24cc-51a7-4882-2963-0e3ad7d0f600/public)
+![image](https://imagedelivery.net/qNOPexKG0LNTBq80SlqDOw/a79b24cc-51a7-4882-2963-0e3ad7d0f600/public)
 
 Stay tuned for more updates!
