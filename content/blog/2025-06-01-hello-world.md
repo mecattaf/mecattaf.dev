@@ -7,6 +7,7 @@ tags = ["meta"]
 +++
 
 Hello! 
+
 This is my personal blog and website where I'll be sharing my thoughts on entrepreneurship, open source software (especially Linux and local AI), and documenting my tech stack.
 
 ## A bit about me:
