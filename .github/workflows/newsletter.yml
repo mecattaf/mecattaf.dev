@@ -131,28 +131,28 @@ jobs:
             blogUrl += `${year}/${slug}/`;
           }
           
-          // Start with clean content - no wrapper since ConvertKit template handles that
-          let html = '';
+          // Force consistent styling by wrapping everything in a div with important styles
+          let html = `<div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important; font-size: 16px !important; line-height: 1.6 !important; color: #333333 !important;">`;
           
-          // Add the title as H1 - ConvertKit template will style it
-          html += `<h1><a href="${blogUrl}" target="_blank" rel="noopener">${title}</a></h1>\n\n`;
+          // Add the title as H1 - with forced styling
+          html += `<h1 style="font-size: 24px !important; font-weight: 600 !important; margin: 0 0 20px 0 !important; line-height: 1.3 !important;"><a href="${blogUrl}" target="_blank" rel="noopener" style="color: #333333 !important; text-decoration: none !important;">${title}</a></h1>\n\n`;
           
-          // Process the markdown content - minimal styling to work with ConvertKit template
+          // Process the markdown content - force consistent styling to override ConvertKit template
           let content = markdown
             // Remove Hugo comments
             .replace(/<!--[\s\S]*?-->/g, '')
             // Remove Hugo shortcodes
             .replace(/\{\{[^}]+\}\}/g, '')
-            // Convert headers - let ConvertKit template handle styling
-            .replace(/^#{1}\s+(.+)$/gm, '<h2>$1</h2>')
-            .replace(/^#{2}\s+(.+)$/gm, '<h3>$1</h3>')
-            .replace(/^#{3}\s+(.+)$/gm, '<h4>$1</h4>')
-            .replace(/^#{4}\s+(.+)$/gm, '<h5>$1</h5>')
-            .replace(/^#{5,6}\s+(.+)$/gm, '<h6>$1</h6>')
-            // Convert code blocks - minimal styling
-            .replace(/```([\w]*)\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>')
-            // Convert inline code
-            .replace(/`([^`]+)`/g, '<code>$1</code>')
+            // Convert headers - force consistent styling
+            .replace(/^#{1}\s+(.+)$/gm, '<h2 style="font-size: 20px !important; font-weight: 600 !important; margin: 24px 0 12px 0 !important; line-height: 1.3 !important; color: #333333 !important;">$1</h2>')
+            .replace(/^#{2}\s+(.+)$/gm, '<h3 style="font-size: 18px !important; font-weight: 600 !important; margin: 20px 0 10px 0 !important; line-height: 1.3 !important; color: #333333 !important;">$1</h3>')
+            .replace(/^#{3}\s+(.+)$/gm, '<h4 style="font-size: 16px !important; font-weight: 600 !important; margin: 18px 0 8px 0 !important; line-height: 1.3 !important; color: #333333 !important;">$1</h4>')
+            .replace(/^#{4}\s+(.+)$/gm, '<h5 style="font-size: 16px !important; font-weight: 600 !important; margin: 16px 0 8px 0 !important; line-height: 1.3 !important; color: #333333 !important;">$1</h5>')
+            .replace(/^#{5,6}\s+(.+)$/gm, '<h6 style="font-size: 16px !important; font-weight: 600 !important; margin: 16px 0 8px 0 !important; line-height: 1.3 !important; color: #333333 !important;">$1</h6>')
+            // Convert code blocks - force consistent styling
+            .replace(/```([\w]*)\n([\s\S]*?)```/g, '<div style="background-color: #f8f9fa !important; border: 1px solid #e9ecef !important; border-radius: 4px !important; padding: 12px !important; margin: 16px 0 !important; font-family: Monaco, Consolas, monospace !important; font-size: 14px !important; line-height: 1.4 !important; overflow-x: auto !important;"><pre style="margin: 0 !important; white-space: pre-wrap !important;"><code style="background: none !important; padding: 0 !important; font-size: 14px !important;">$2</code></pre></div>')
+            // Convert inline code - force consistent styling
+            .replace(/`([^`]+)`/g, '<code style="background-color: #f1f3f4 !important; color: #d73a49 !important; padding: 2px 4px !important; border-radius: 3px !important; font-family: Monaco, Consolas, monospace !important; font-size: 14px !important;">$1</code>')
             // Convert images BEFORE links to avoid conflicts
             .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, src) => {
               // Convert relative URLs to absolute URLs for email compatibility
@@ -168,12 +168,12 @@ jobs:
                 absoluteSrc = `https://mecattaf.dev/${src}`;
               }
               
-              return `<img src="${absoluteSrc}" alt="${alt}" style="max-width: 100%; height: auto;">`;
+              return `<div style="margin: 16px 0 !important; text-align: center !important;"><img src="${absoluteSrc}" alt="${alt}" style="max-width: 100% !important; height: auto !important; border-radius: 4px !important;"></div>`;
             })
             // Convert bold text 
-            .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>')
+            .replace(/\*\*([^*\n]+)\*\*/g, '<strong style="font-weight: 600 !important;">$1</strong>')
             // Convert italic text 
-            .replace(/\*([^*\n]+)\*/g, '<em>$1</em>')
+            .replace(/\*([^*\n]+)\*/g, '<em style="font-style: italic !important;">$1</em>')
             // Convert links
             .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, linkText, url) => {
               // Ensure URLs are properly formatted for ConvertKit
@@ -190,10 +190,10 @@ jobs:
                 }
               }
               
-              return `<a href="${cleanUrl}" target="_blank" rel="noopener">${linkText}</a>`;
+              return `<a href="${cleanUrl}" target="_blank" rel="noopener" style="color: #2563eb !important; text-decoration: underline !important;">${linkText}</a>`;
             });
 
-          // Process lists separately - let ConvertKit template handle styling
+          // Process lists separately - force consistent styling
           const lines = content.split('\n');
           const processedLines = [];
           let inList = false;
@@ -210,12 +210,12 @@ jobs:
               }
               const match = line.match(/^[\s]*[-*+]\s+(.+)$/);
               if (match) {
-                listItems.push(`<li>${match[1]}</li>`);
+                listItems.push(`<li style="margin: 4px 0 !important; font-size: 16px !important; line-height: 1.6 !important;">${match[1]}</li>`);
               }
             } else {
               if (inList) {
-                // End of list, wrap it - minimal styling
-                processedLines.push(`<ul>\n${listItems.join('\n')}\n</ul>`);
+                // End of list, wrap it - force consistent styling
+                processedLines.push(`<ul style="margin: 16px 0 !important; padding-left: 20px !important; font-size: 16px !important; line-height: 1.6 !important;">\n${listItems.join('\n')}\n</ul>`);
                 inList = false;
                 listItems = [];
               }
@@ -229,13 +229,13 @@ jobs:
 
           // Don't forget the last list if the content ends with one
           if (inList) {
-            processedLines.push(`<ul>\n${listItems.join('\n')}\n</ul>`);
+            processedLines.push(`<ul style="margin: 16px 0 !important; padding-left: 20px !important; font-size: 16px !important; line-height: 1.6 !important;">\n${listItems.join('\n')}\n</ul>`);
           }
 
           // Join lines back and process paragraphs
           content = processedLines.join('\n');
 
-          // Convert paragraphs - minimal styling, let ConvertKit template handle it
+          // Convert paragraphs - force consistent styling to override template
           const paragraphs = content.split(/\n\s*\n/);
           const processedParagraphs = paragraphs.map(paragraph => {
             paragraph = paragraph.trim();
@@ -255,12 +255,12 @@ jobs:
               return paragraph;
             }
             
-            // Wrap in paragraph tags - no custom styling
-            return `<p>${paragraph}</p>`;
+            // Wrap in paragraph tags - FORCE consistent styling with !important
+            return `<p style="margin: 16px 0 !important; font-size: 16px !important; line-height: 1.6 !important; color: #333333 !important;">${paragraph}</p>`;
           }).filter(p => p !== '');
 
-          // Return clean HTML that works with ConvertKit template
-          return html + processedParagraphs.join('\n\n');
+          // Return HTML with forced consistent styling and close the wrapper div
+          return html + processedParagraphs.join('\n\n') + '\n</div>';
         }
 
         async function sendToConvertKit(subject, content, isDraft) {
