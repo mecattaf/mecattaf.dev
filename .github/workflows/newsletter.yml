@@ -257,7 +257,7 @@ jobs:
             return `<p style="margin: 10px 0; line-height: 1.6;">${paragraph}</p>`;
           }).filter(p => p !== '');
 
-          return html + processedParagraphs.join('\n\n');
+          return html + processedParagraphs.join('\n\n') + '\n</div>';
         }
 
         async function sendToConvertKit(subject, content, isDraft) {
