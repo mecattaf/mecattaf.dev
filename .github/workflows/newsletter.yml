@@ -95,16 +95,14 @@ jobs:
             }
             
             // Convert markdown to plain text for email
-            const convertedContent = convertMarkdownToText(content);
+            const emailContent = convertMarkdownToText(content);
             
             // Prepare newsletter data
             const subject = frontMatter.title || 'New Blog Post';
-            
-            // Add the title at the top of the content
-            const emailBody = `<br><br><strong>${subject}</strong><br>========================================<br><br>${convertedContent}`;
+            const emailBody = emailContent;
             
             console.log(`📧 Subject: ${subject}`);
-            console.log(`📝 Content length: ${emailBody.length} characters`);
+            console.log(`📝 Content length: ${emailContent.length} characters`);
             
             // Send to ConvertKit
             await sendToConvertKit(subject, emailBody, isDraft);
