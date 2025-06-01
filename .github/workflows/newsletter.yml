@@ -155,7 +155,24 @@ jobs:
             // Convert italic text 
             .replace(/\*([^*\n]+)\*/g, '<em>$1</em>')
             // Convert links to proper HTML anchors with styling
-            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" style="color: #0066cc; text-decoration: underline;">$1</a>');
+            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" style="color: #0066cc; text-decoration: underline;">$1</a>')
+            // Convert images to proper HTML with absolute URLs
+            .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, src) => {
+              // Convert relative URLs to absolute URLs for email compatibility
+              let absoluteSrc = src;
+              
+              // If it's a relative path, make it absolute
+              if (src.startsWith('/')) {
+                absoluteSrc = `https://mecattaf.dev${src}`;
+              }
+              // If it's already a full URL, keep it as is
+              else if (!src.startsWith('http')) {
+                // Handle other relative paths (without leading slash)
+                absoluteSrc = `https://mecattaf.dev/${src}`;
+              }
+              
+              return `<img src="${absoluteSrc}" alt="${alt}" style="max-width: 100%; height: auto; display: block; margin: 10px 0;" />`;
+            });
 
           // Process lists separately to handle them properly
           const lines = content.split('\n');
