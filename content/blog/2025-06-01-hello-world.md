@@ -8,7 +8,7 @@ tags = ["meta"]
 
 Hello! 
 
-This is my personal blog and website where I'll be sharing my thoughts on entrepreneurship, open source software (especially Linux and local AI), and documenting my tech stack.
+This is my personal blog where I'll be sharing my thoughts on entrepreneurship, open source software (especially Linux and local AI), and documenting my tech stack.
 
 ## A bit about me:
 I'm a startup founder and open source software enthusiast. I've worked as a venture analyst at Charge Ventures where I applied data science, ML, and early AI tooling. I was the first data scientist at Kumospace, a 3D spatial audio video chat company. I started my first company Enoki Inc. (Antler Austin S22) which got a small exit. 
