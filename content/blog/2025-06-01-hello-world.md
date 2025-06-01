@@ -6,7 +6,7 @@ lang = "en"
 tags = ["meta"]
 +++
 
-Howdy! 
+Hi there! 
 
 This is my blog where I'll be sharing my thoughts on entrepreneurship, open source software and documenting my tech stack.
 
