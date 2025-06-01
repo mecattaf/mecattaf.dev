@@ -24,3 +24,5 @@ I'll be documenting my journey with:
 - Thoughts on data-driven entrepreneurship
 
 Stay tuned for more updates!
+
+T
