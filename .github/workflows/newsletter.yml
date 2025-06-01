@@ -300,20 +300,33 @@ jobs:
           console.log(`✅ Broadcast created with ID: ${broadcastId}`);
           
           if (!isDraft) {
-            // Send the broadcast immediately
+            // Send the broadcast immediately by updating it with send_at
             console.log('📬 Sending newsletter...');
             
-            await axios.post(
-              `https://api.convertkit.com/v3/broadcasts/${broadcastId}/send?api_key=${apiKey}`,
-              { api_secret: apiSecret },
-              {
-                headers: {
-                  'Content-Type': 'application/json'
+            try {
+              const sendResponse = await axios.put(
+                `https://api.convertkit.com/v3/broadcasts/${broadcastId}`,
+                { 
+                  api_secret: apiSecret,
+                  send_at: new Date().toISOString() // Send immediately
+                },
+                {
+                  headers: {
+                    'Content-Type': 'application/json'
+                  }
                 }
-              }
-            );
-            
-            console.log('🎉 Newsletter sent successfully!');
+              );
+              
+              console.log('🎉 Newsletter sent successfully!');
+              console.log('📊 Send response:', JSON.stringify(sendResponse.data, null, 2));
+            } catch (sendError) {
+              console.error('❌ Error sending broadcast:');
+              console.error('Status:', sendError.response?.status);
+              console.error('Status Text:', sendError.response?.statusText);
+              console.error('Response Data:', JSON.stringify(sendError.response?.data, null, 2));
+              console.error('Request URL:', `https://api.convertkit.com/v3/broadcasts/${broadcastId}`);
+              throw sendError;
+            }
           } else {
             console.log('📝 Draft created in ConvertKit for review');
             console.log(`🔗 Review at: https://app.convertkit.com/broadcasts/${broadcastId}`);
