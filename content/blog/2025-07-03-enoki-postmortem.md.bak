@@ -1,0 +1,236 @@
+
+
+1) my technical journey that led me to enoki
+```
+- at the time i worked as the first data scientist at kumospace (3d spacial audio video chat company which grew tremendously fast during covid and remote work, and fundraised very well). i also loved tools like figma and google docs and saw firsthand how great products that have sharing have such an unfair advantage when it comes to product-led growth. having been working remotely for all of my career, i wondered if it was possible to build the same kind of product for coding. especially due to the pandemic, the coding experience was a very isolating one - whether it is professional software engineering work or contributing to open-source software.
+- i experimented with having multiple users interacting with the same linux desktop environment, i learned about multisteating which was made available with Xpra, and how this was achieved in the past actually with Plan9. i came across this hackernews post explaining how libseatd could achieve that with multiple wayvnc sessions. lo and behold: this was feasible on sway window manager, the spiritual successor of i3 window manager so i migrated my configuration and got testing. the same day, i showed two mice on the same local desktop through multiple mice and keyboard
+the exact hackernews comments that served as inspiration for my multi-seating hack: https://news.ycombinator.com/item?id=25892128
+- "figma for developers" was born > enoki. and at that time i got into the antler startup accelerator in austin, texas (where i had just moved a few months ago, and got in purely out of luck since i had also applied to 15 global accelerators and could have gone to singapore equally as likely as austin!). this was for the summer 2022 batch. 
+- At the end of the first 6 weeks i made it through the first selection process (one of 5 founders in a cohort of 50 founders in residence) and got Antler's backing. I hired my cofounders and we started this journey officially.
+- from there we built this "multiplayer desktop environment in a box" called aither, inspired by docker-webtop which was a proof of concept of the multiseating but had unfixable issues like the latency when used through a browser (a noVNC limitation that we never got over).
+```
+
+2) postmortem written a few months after shutting down the company. this document was intially shared with the Antler team. it contains erroneous data like how we decided to stop the company because of founder disagreements. ultimately we stopped the company because it ran out of money. also informally the company sold some core IP
+https://finance.yahoo.com/news/enokis-core-asset-acquired-alphadevs-090000641.html
+we left the language around "an acquisition" ambiguously. the delaware c corp was dissolved
+```
+As I write this, I am in the process of officially closing Enoki’s corporation, marking the
+end of my first startup. Before diving into the lessons learned, I want to reminisce a little on the
+first days of Enoki.
+I hacked together a version of Linux that had multi-seating (multiple independent mouse cursors
+on the desktop that can each control their own programs). When run on a large enough display it
+can mimic the feeling of Figma's infinite canvas with the full power of desktop apps like web
+browsers, file explorers and crucially coding tools (like VSCode). This enabled multiple users to
+interact with the same desktop concurrently. The final step was to run the desktop on a powerful
+cloud machine and to turn the website browser into a VNC client (technology from the 90's:
+https://en.wikipedia.org/wiki/Virtual_Network_Computing). The end result is [embed gif
+https://github.com/enoki-inc/aither/blob/main/demo.gif]
+This was the MVP to validate my hypothesis that "one desktop, multiple users" had productivity
+benefits especially for software developers. We found a great analogy in nature with the Japanese
+mushroom Enoki-take which is has one root but multiple heads. Take (kanji) means mushroom
+so by substraction Enoki is the metaphor for the company. I had seen the power of network
+effects and product-led growth firsthand while at charge.vc and Kumospace, and it was the key
+feature of this product. Enoki was a part of Antler's Summer 2022 batch in Austin, TX. We
+incorporated in september 2022 and received $250,000 in angel and pre-seed funding
+[page2_img1.png]
+There were specifically big productivity benefits we experienced in software development, so
+our big bet was that we could make reading/writing/running code more collaborative. We
+initially marketed Enoki as Browser-based synchronous AND asynchronous cloud development
+environment (with multiple IDEs/terminals/browsers) that could be shared with a single click.
+We wanted to eventually compete with the likes of Replit, Github Codespaces and Gitpod. We
+were also convinced from our customer interviews that software engineering teams had the
+"shift-left" trend which as a practice meant that when building software, developers were trying
+to perform code testing earlier and earlier in the coding process.
+This shift-left pattern had been occurring since my time as an Analyst at Charge Ventures in
+2020 when we saw a large increase in the developer tools dealflow. As the graph shows, the
+ground was indeed moving beneath our feet with the advent of AI and its incredible potential to
+accelerate code production. We speak about this initial vision at length in the ChangeThat
+Podcast:
+https://podcasts.apple.com/us/podcast/episode-4-multiplayer-desktops/id1566867158?i=1000584
+542397
+https://open.spotify.com/episode/0UwBDlq2ZcY5KqaU7xVcym
+After over a year of working on this, several pivots later, we have finally put the Enoki mission
+to rest. In order to grow from this experience, we want to highlight all our lessons learned:
+1) “You’re not one feature away from success” Jack Altman tweet
+(https://twitter.com/jaltma/status/1651670017845391360?ref_src=twsrc%5Etfw)
+It almost never works like this. We sometimes struggled to internalize the feedback we were
+getting on our product - from existing and aspiring users. Our deep personal attachment to our
+product made us blinded to certain changes that were essential. We spent five months building a
+massive MVP that was still not compelling enough for devs to radically change their workflow.
+2) Focus all energy on the absolute nearest necessities. Doing “optional” things is much worse
+than a waste of time if you do them in the wrong sequencing loop. We found that we sometimes
+strayed away from focusing strictly on our core product and focusing on miscellaneous items,
+like brand colors. Anything that does not directly contribute to growth or fundraising or hiring is
+not the founders’ priority (https://kwokchain.com/2020/06/19/why-figma-wins/).
+3) Getting contractors is very dangerous early on because of the misalignment of interest. The
+key is to assess them based on clear metrics and KPIs. Hiring software engineering
+contractors/devs on demand are just a variable resource, and they should not be allocated in a
+month where you A/B test. I distinctly remember having a conversation on having to create work
+for a contractor we pay for already. This added more managerial overhead and slowed us down
+effectively.
+4) We recognized the “fatal pinch” (http://www.paulgraham.com/pinch.html) too late. We let go
+of one of the founders and reduced salary and burn drastically, and immediately saw faster
+iteration cycles. In retrospect we should have ripped the band-aid much faster.
+5) Startup accelerators are not a mandate to stick to the same idea. You have no “moral”
+obligation to stick to an original hypothesis if there is clear market data that screams that you
+don’t want to build it. In fact your moral obligation is to pivot as soon as your intuition or
+real-world data points you away from your product. We found through our extensive surveys that
+less than 5% of software engineers practiced live pair programming. The truer insight there was
+that 95% of engineers didn’t enjoy or believe in pair programming from the start. We thought
+that it was a “generational thing” and that younger devs would collaborate more drawing from
+tools like figma (https://open.spotify.com/episode/0UwBDlq2ZcY5KqaU7xVcym).
+6) We never nailed the single player experience before building the multiplayer experience. The
+product was laggy for most users. The AWS-hosted infrastructure Aither service was capped to
+20 fps which made the system feel slow or clunky - due to the legacy browser-based VNC clients
+like noVNC which Aither is built on top of. Based on the initial insights we got from our users,
+we found that the product itself had a very high k-factor as each user brought on an average of 3
+new users. I had seen these numbers during my time with Kumospace and correlated it with
+immense product-led growth potential. However this number quickly eroded as our sample size
+grew. We made a big bet on network effects but this is an accelerant to growth, it cannot be the
+reason growth happens.
+7) We overbuilt the product, without a clear idea of what specific problems our product solved
+for the end users. We added features like slack and jira integrations early on. Interactions with
+our beta users found it helpful for the code review process. We basically found an adjacent use
+case and tried to retro-fit our complex product for a new problem. Building a product for the first
+time can feel like “putting on a blindfold and throwing darts''. The biggest questions we could
+not find an answer to quickly were “Who is the customer?”, “What channel do they live on?”,
+“What existing communities can you leverage to find new users organically?”
+8) We “missed the technical shift”.
+https://www.insightpartners.com/ideas/ai-coding-developer-productivity-software-supply-chain/
+The ground was basically moving beneath our feet and there was a clear demand for AI tools in
+the software development space. Once we realized that the future of coding was not
+collaborative-driven but rather AI-driven, we moved away from Enoki, the multiplayer desktop
+and tried to get into AI. Drawing from our open source backgrounds, we launched Osai, an open
+source prompt bank. Each prompt came with the OS Public Prompt License. This quickly
+developed further into a multiplayer version of chatgpt powered by liveblocks, a collaborative
+tool for LLM interactions (which we sold to an AI/Blockchain Software Development Company
+to extend runway).
+[[page6_img1.png]]
+9) Interest does not equal traction. We took metrics like Github stars and usage data strictly as
+signs of traction, when we should have been only interested in sales as the main sign of traction.
+10) At some point, it’s either consulting or SaaS. We started “selling cereal” through consulting
+(https://entrepreneurshandbook.co/how-airbnb-founders-sold-cereal-to-keep-their-dream-alive-d
+44223a9bdab). Consulting can entail long sales cycles, and the cynical view is that “you are
+always one contract away from dying”. It can however enable you to get closed to identifying
+new problems and - in our case - rediscover our love for building products that users love.
+Ultimately we decided to stop the company because we ran out of runway, and while it
+was a tough decision, we each individually felt this was the right move. Now, we have to move
+forward amicably and leave the option to work together again on the table. We have yet to fully
+process what happened in the last year or so and there are many more lessons we have to take.
+We would like to express our deepest gratitude to our early backers from Antler, especially
+Prerna Sharma, Joseph Cardini and Tyler Norwood for believing in us and giving us the chance
+to jump into the entrepreneurial world. The whole ecosystem created by the Antler US team is
+incredible. We would like to thank Gary Schall and the whole
+team from the Wilmerhale Launch program. To all who accepted to demo our product, sat with us on user interviews,
+signed up for our alpha and beta programs, and contributed to our open-source initiatives - thank
+you very much for giving us a chance. And finally to all the friends who coded on the project -
+with a special mention to Sergio Nahas and Alessandro Merola - we appreciate your help and
+look forward to your future endeavors.
+Thank you all again.
+Enoki Founding Team
+page7_img1.png
+page8_img1.png
+page8_img2.png
+page9_img1.png
+page9_img2.png
+page10_img1.png
+page11_img1.png
+page12_img1.png
+page13_img1.png
+page14_img1.png
+```
+
+3) rohan (my cofounder) and i had a lengthy retrospective talk, 2 years after closing the company. notes i collected from these calls:
+```
+Thoughts from Rohan (my cofounder):
+Didn t ielterate fast enough. Feed ack loops not fast enough  
+Too stuck into weeds of let s build this ignore signals. Replit pushing features.  
+Founder mkit fit we were not the right ppl. Not dev centric  
+Level of urgency cf and burn. Think it was going fine. Each month is extra burn.  
+Better assessment of skills needed on team. We needed a figma beast. Needed sales exp, 0 to 1 salesman. Or somebody with willingness to do it.  
+Could have been more resourceful from the get-go ie monitor every penn. Instead we paid contractors decent amounts monthly, should have thought of better way to get high output w min financial input. More investigation on free resources.  
+Too explocit in terms of delegation: rigidity in roles put people in silo.  
+Better at roadmapping: where we wanted to end up. Clearer timelines clearly  defined. More intentional about deadlines.  
+Knowing if you re b2b or b2c. We though b2d2b was the way.
+
+Making the business a well oiled machine is primordial. SOP l, every month flthird friday of the month get notes to investors   
+Every monday put down priority and collectively priortiize. Honest conv about burn rate, perso conv. How the hell do u focus on work if no cash coming in   
+Being quick to kill a product or feature or a priority. Done analyais on feedback and relaoze it s not high priority feature. Every day wasted is a day you dnt get bakc to move the needle. 
+
+Feel like i was running. Ceo dilemma: being a visionary while  balancing execution of that (understanding operator role). They need to be grounded in the team s execution of that vision and how long that s gonna take. "Ceo wants it done yesterday." How do u balance that division with execution time   
+Diallo (third cofounder) was like thomas keeps printing ideas. In hindsight it was what i should have been doing but should have been grounded in reality of current state of product amd what it would truly be. When u have limited eng repsurces amd hands, how do u execute. Priorities gotta align priperly then waste time on non hogh priority thing.   
+Reactivity: new info coming in. Reframe. Out of your 50 ideas What are the next 10 that people will pay for. Deep customer centric approach. Roadmap revolves around that.
+
+Thinking what s best for your business vs what s best for investor. Was thinking theough lens of nicest narrative, how to mtiigate tech moat. Teuth of matter none of those come up w those. Nobody s gonna argue with million arr. Moat defensivility roadmap but live in moment: revenues are coming in. Balancing expectation of investor va of the business
+
+Thomas notes:
+
+\- sequencing issue: pretty things, growthrocks. External devs.  
+\- trello board graveyard for good ideas.   
+\- eng era bygone, but slow. Bad at scoping or overambitious  
+\- shitty product. Not coherent. Stiching shit together.  
+\- listened to the commentators  
+\- how can we make sure there always more money in the bank. Assume you won t ever raisen. Worked based on assumption that we ll raise millions in funding in next few months  
+\- should have anchored salaries on carta data.  
+\- only so much you can do to dress up the pig to make it pretty. adding features to a broken product is like a pig with lipstick. Knew that deep down. But i spent on fundraising  
+\- but culpability we all share on product perspective. So it s a sequencing problem. It s all about the roadmapm  
+\- parallelization of tasks: fundraising little bit today, little bit tomorrow. Even if just scratching surface on each. Good for routine building. Setup crm, pull. 
+\- guilt and shame was unwarranted. Drop off from monthly update. How do you make sure what ur saying this month is not happening. What do you with that? Then there s no urgency to step up and make sure that those updates are not concrete. Even if Prerna did not scold us, internally we should have said No this is not on track and tried to fix it. disappearing on people never solves the issue.
+\- asks: should have an email that this is what we want from you. Part of monthly update. Intros to top devs from startups, companies that could be a good fit. Or we can leverage to improve customer discovery  
+Sergio:  
+\- cheap tests vs expensive "big bets"
+
+—
+
+Evaluate your flaws to the max. This is the true hiring pipeline.   
+
+Amount of fund raised is a dick measuring contest. Truly. You re working as if this is the last amt you ll ever raise
+
+I need to reframe a perception. You didn t "skip" the corporate job (your investors are your boss now). You just started the game on Hard difficulty and without spending 2 yrs working "for a great boss". Or having easy, measurable wins. You re in for a series of reality checks, hearbreaks (giving it your all doesn t always work, inputs \!= Outputs). Embrace the nonlinearity of it all.   
+But there are proxies to that: coaches.  
+It s not uni. You are no longer graded.   
+I got all this advice and still failed my first company. Being analytical as we are is a short term handicap but a long trrm superpower. You will be less of a pure doer. And that s fine.
+```
+
+4) prompt and pointers to synthesis ai agent
+```
+initially when i decided to write mecattaf.dev i wanted to  "blend" my own story/relationship with the linux operating system and weave it in and out of my startup s story. i m not reconsidering that but i want to create some level of distinction.
+
+* if a founder's first startup is a reflection of the founders' personality and it is their attempt to express themselves
+- in one line enoki failed because we focused on the wrong things in the wrong sequencing loop while not locking into the signal (paid contracts or traction on the open source side)
+- so paradoxilcally while we were very close to the problem (working remotely on our own feelign isolated; yearning for a similar experience to live collaborative tools like figma and google docs ut for coding); we were not te right founders to build this company. not the right product/engineering experience on team (failure to recognize weakness/hire); or the talent to steer devrel for an opensource project; and certainly not the right zero to one sales accumen. at a deeper psychological level it made me aware of how low my tolerance for rejection was and forced me to confront these fears (exposure)
+- to another technical founder: was true then and is true now: nobody should get in the way of you speaking with users/customers and asking the right questions to them.
+- regarding callbacks yes i do have many slides of the leger pitch deck and the design documents throughout the article.
+- of course this changed my approach as i now sell before i build and focus on being a cash flow positive company (default alive)
+- building this company made me so close to devops and linux and the wayland display environment that i still run linux. and it has made me very close to the concept of workflows. i am still convinced that opensource software is a great way to build a company with  strong fundamentals and a defensible value proposition.
+
+at one point we had hundreds of daily users but a very low retention rate (less than 5% of users used the product more than 3 times). in fact while i was in antler the first 6 weeks i spent my time demoing to new people aggressively to get to a high usage count. i walked around the austin tx wework office and aporoach every person i saw. 
+part of why we could not sell is that we failed to translate our product into an ROI benefit. cto s don t think that way.
+we were selling vitamins that did not have proven effects to people who unly understand painkillers.
+
+another big problem in retrospect is that we were extremely slow at producing outputs. myself and my technical cofounder was our first time interacting with the thousands of AWS tools. we didn't kniw what we didn't know so could never estimate complexity, deliverable dates (and costs) for what we buit.
+
+if i could go back in time at one specific moment i would talk to me the day after i raised the funding round from antler and tell myself: this is not a mandate to build enoki as you pitched them, you have to start with an open mindset and identify exactly what it is that you want to build. are you sure that you are tackling the right problem? and are you doing it the right way? instead of optimizing for "how am i going to raise my seed round in the shortest amount of time possible" + how to i create traction for this MVP that got some people thinking it's cool.
+```
+
+5) some closing thoughts
+```
+we could mention as closing thoughts that our hunch of changing the ide space was not wrong. there was potential to change how devs work. they were not "attched to vscode forever"
+it was not the idea that was flawed. it was the execution
+
+just take a look at cursor ai or winsurf etc.
+we candidly did not build the right team, with the "right dna", to be the ones to solve this problem. this doesn't mean we could never do it. but we did not have enough iterations on product and speaking with customers to get there.
+```
+
+6) additional references
+```
+what inspired me to write this blog post is my mentor Brett Martin's blog posts 
+https://medium.com/@brett1211/postmortem-of-a-venture-backed-startup-72c6f8bec7df
+https://medium.com/@brett1211/scar-tissue-f29ba9f15825
+https://danielle-newnham-podcast.simplecast.com/episodes/brett-martin-wurAQrht
+and this blog post
+https://medium.com/@martigouca/learnings-of-not-finding-product-market-fit-in-a-24-b2b-saas-startup-98911c9ee565
+```
+
+
+

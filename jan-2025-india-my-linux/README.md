@@ -1,7 +1,6 @@
 ## My domains:
 - statsforstartups.com: the website of kpis 
 - mecattaf.dev: personal website which also serves as a directory of all my websites
-- enoki.so: for my linux desktop
 - leger.run: experiment for ai SaaS, show investors, push Intel local, whjere we log "future is small models" and speak about quantization and hardware optimization for local LLMs for certain devices through our support of ramalama
 - agency.agency: open source tool for building stateful agents
 
@@ -23,13 +22,7 @@ List of topics to showcase:
 - although on paper my first job as a venture analyst at charge ventures (2019-2021) i got to flex my coding skills by using a lot of ds/ml and ai tooling that were still in early days. this included interacting with an early GPT 2 model via private beta in 2019 and i remember feeling underwhelmed by it. this also includes early interaction with clay and baseten's product where the available models were tools like image styletransfer and BERT-based transformer text summarization
 - since windows killed my devices i vowed to transition to linux fully. as a covid passion project, i entered the tiling window manager rabbit hole starting with i3 on regolith linux: https://regolith-linux.org/ which is now past version 3: https://regolith-desktop.com/ 
 - i rediscovered vim and learned REAL git and generally reading the fucking manual (rtfm) (felt like building legos). at this point i learned enough about linux to be a senior devops engineer level sysadmin.
-- at the time i worked as the first data scientist at kumospace (3d spacial audio video chat company which grew tremendously fast during covid and remote work, and fundraised very well). i also loved tools like figma and google docs and saw firsthand how great products that have sharing have such an unfair advantage when it comes to product-led growth. having been working remotely for all of my career, i wondered if it was possible to build the same kind of product for coding. 
-- i experimented with having multiple users interacting with the same linux desktop environment, i learned about multisteating which was made available with Xpra, and how this was achieved in the past actually with Plan9. i came across this hackernews post explaining how libseatd could achieve that with multiple wayvnc sessions. lo and behold: this was feasible on sway window manager, the spiritual successor of i3 window manager so i migrated my configuration and got testing. the same day, i showed two mice on the same local desktop through multiple mice and keyboard
-- "figma for developers" was born > enoki. and at that time i got into the antler startup accelerator in austin, texas (where i had just moved a few months ago, and got in purely out of luck since i had also applied to 15 global accelerators and could have gone to singapore equally as likely as austin!)
-- from there we built this "multiplayer desktop environment in a box" called aither, inspired by docker-webtop which was a proof of concept of the multiseating but had unfixable issues like the latency when used through a browser (a noVNC limitation that we never got over).
-- in parallel to that, bluebuild branches out of the ublue project and proceeds to solve the linux desktop entirely, i kept up with this (see lineage of github repos). i have made some contributions to this project (see brew module)
-- recently i began experimenting with NPU for my dual-screen laptop (see archived npu repo for whisper)
-- so i m bringing back the enoki domain (like Elon bringing back his x.com domain to rebrand twitter). enoki.so the website has a big announcement at the top where we explain that the enoki delaware c-corp backed by antler. 
+- LINK TO ENOKI POSTMORTEM
 
 ### 2) "dots-zen" to Dotfiles
 Dotfiles are meant to be hidden in the OS. this has changed a lot for me in the past few years. 
