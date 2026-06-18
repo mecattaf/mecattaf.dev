@@ -5,7 +5,7 @@
 //     dist/index.html              the "Requests for Comments" index (+ search)
 //     dist/<number>/index.html     one page per RFC
 //
-import { readFileSync, writeFileSync, mkdirSync, readdirSync, copyFileSync, rmSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, copyFileSync, cpSync, rmSync } from 'node:fs';
 import { dirname, join, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import matter from 'gray-matter';
@@ -41,9 +41,14 @@ const fmtDate = (d) => {
   };
 };
 
-// Dark-only (catppuccin-noir): no theme toggle.
 function pageActions() {
-  return '';
+  return `
+    <div class="page-actions">
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Theme: auto">
+        <span class="theme-toggle-icon" aria-hidden="true"></span>
+        <span data-theme-toggle-label>Auto</span>
+      </button>
+    </div>`;
 }
 
 function htmlHead({ title, description, canonical, ogType }) {
@@ -67,7 +72,7 @@ function htmlHead({ title, description, canonical, ogType }) {
   <script>try{const theme=localStorage.getItem("earendil-rfc-theme");if(theme==="light"||theme==="dark"){document.documentElement.dataset.theme=theme;document.documentElement.style.colorScheme=theme;}}catch{}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
   <link rel="stylesheet" href="/assets/site.css?v=${ASSET_VERSION}">
   <link rel="stylesheet" href="/assets/theme.css?v=${ASSET_VERSION}">
   <script defer src="/assets/app.js?v=${ASSET_VERSION}"></script>
@@ -237,8 +242,7 @@ ${items}
 
 // ---------- build ----------
 rmSync(DIST, { recursive: true, force: true });
-mkdirSync(join(DIST, 'assets'), { recursive: true });
-for (const f of readdirSync(join(ROOT, 'assets'))) copyFileSync(join(ROOT, 'assets', f), join(DIST, 'assets', f));
+cpSync(join(ROOT, 'assets'), join(DIST, 'assets'), { recursive: true });
 // static passthrough (favicon, _redirects, etc.)
 try { for (const f of readdirSync(join(ROOT, 'static'))) copyFileSync(join(ROOT, 'static', f), join(DIST, f)); } catch {}
 

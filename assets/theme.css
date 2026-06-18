@@ -1,106 +1,91 @@
 /* mecattaf.dev theme overrides — loaded after site.css.
-   Fonts: Spectral (headings) + Inter (body), mirroring tomtunguz.com.
-   Palette: catppuccin-noir (from ~/.config/nvim). Dark-only. */
+   Fonts: Maison Neue (body, self-hosted from tomtunguz.com) + Spectral (headings).
+   Light = the base "paper" theme. Dark = catppuccin-noir (from ~/.config/nvim). */
 
-/* --- palette: applied regardless of any stored light/dark toggle --- */
-:root,
-:root[data-theme='light'],
-:root[data-theme='dark'] {
-  color-scheme: dark;
+/* --- Maison Neue (self-hosted). Light is the default body face, like tomtunguz.com. --- */
+@font-face { font-family: 'Maison Neue'; src: url('/assets/fonts/MaisonNeue-Light.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Maison Neue'; src: url('/assets/fonts/MaisonNeue-Medium.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Maison Neue'; src: url('/assets/fonts/MaisonNeue-Demi.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Maison Neue'; src: url('/assets/fonts/MaisonNeue-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Maison Neue Mono'; src: url('/assets/fonts/MaisonNeue-Mono.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
 
-  /* fonts */
-  --body-font: 'Inter', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-  --ui-font: 'Inter', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-  --mono-font: 'Berkeley Mono', 'JetBrains Mono', 'SFMono-Regular', 'SF Mono', ui-monospace, monospace;
+/* --- fonts: universal (both themes) --- */
+:root {
+  --body-font: 'Maison Neue', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --ui-font: 'Maison Neue', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --mono-font: 'Maison Neue Mono', 'JetBrains Mono', ui-monospace, monospace;
   --serif-font: 'Spectral', Georgia, 'Times New Roman', serif;
 
-  /* surfaces — noir */
-  --page-bg: #000000;
-  --paper-bg: #060708;
-  --panel-bg: #0e1013;
-  --paper-border: #20242b;
-  --paper-shadow: rgba(0, 0, 0, 0.6);
-  --rule: #16181d;
-
-  /* text */
-  --ink: #EAECF0;
-  --muted: #818898;
-  --faint: #5b606b;
-  --prose-lead: #EAECF0;
-  --search-excerpt: #818898;
-
-  /* accents */
-  --accent: #70B8FF;
-  --accent-hover: #9fccff;
-  --selection: #1f3a55;
-
-  /* pills / chips */
-  --pill-bg: #14171c;
-  --inline-code-bg: #14171c;
-
-  /* form controls */
-  --control-bg: #0a0c0f;
-  --control-placeholder: #6c7280;
-  --focus-border: #70B8FF;
-  --focus-ring: rgba(112, 184, 255, 0.25);
-
-  /* search popover */
-  --popover-bg: #0a0c0f;
-  --popover-head-bg: #101317;
-  --popover-hover-bg: #14181d;
-  --popover-shadow: rgba(0, 0, 0, 0.7);
-
-  /* visibility note — peach */
-  --visibility-bg: #18130c;
-  --visibility-border: #4a3a22;
-  --visibility-text: #FBAD60;
-
-  /* code + quotes */
-  --code-block-bg: #0c0e11;
-  --code-language: #818898;
-  --blockquote-border: #45475a;
-  --blockquote-text: #D3D7DE;
-
-  /* tweets (unused for now, kept consistent) */
-  --tweet-bg: #0c0e11;
-  --tweet-border: #20242b;
-  --tweet-avatar-border: #2a2e36;
-  --tweet-avatar-bg: #14171c;
-  --tweet-rule: #20242b;
-  --tweet-oembed-bg: #101317;
-
-  /* state pills mapped to the palette */
-  --state-draft-bg: #14171c;     --state-draft-border: #2a2e36;     --state-draft-text: #818898;
-  --state-discussion-bg: #10210f; --state-discussion-border: #305a32; --state-discussion-text: #9BE963;
-  --state-published-bg: #0c1e2e;  --state-published-border: #2a5276;  --state-published-text: #70B8FF;
-  --state-implemented-bg: #103021;--state-implemented-border: #3a7a4f;--state-implemented-text: #5EEDED;
-  --state-abandoned-bg: #2a1416;  --state-abandoned-border: #5a2a30;  --state-abandoned-text: #F47B85;
-
-  /* internal/confidential tiers (unused — site is public) */
-  --index-internal-bg: #0e1013;  --index-internal-hover-bg: #14171b; --index-internal-border: #20242b; --index-internal-ring: rgba(112,184,255,0.18);
-  --index-confidential-bg: #14100f; --index-confidential-hover-bg: #1a1412; --index-confidential-border: #3a2622; --index-confidential-ring: rgba(244,123,133,0.18);
+  /* catppuccin-noir tokens (consumed only in dark contexts below) */
+  --n-page: #000000; --n-paper: #060708; --n-panel: #0e1013; --n-border: #20242b; --n-shadow: rgba(0,0,0,.6); --n-rule: #16181d;
+  --n-ink: #EAECF0; --n-muted: #818898; --n-faint: #5b606b;
+  --n-accent: #70B8FF; --n-accent-h: #9fccff; --n-sel: #1f3a55;
+  --n-pill: #14171c; --n-code-inline: #14171c;
+  --n-ctrl: #0a0c0f; --n-ctrl-ph: #6c7280; --n-focus: #70B8FF; --n-focus-ring: rgba(112,184,255,.25);
+  --n-pop: #0a0c0f; --n-pop-head: #101317; --n-pop-hover: #14181d; --n-pop-shadow: rgba(0,0,0,.7);
+  --n-vis-bg: #18130c; --n-vis-border: #4a3a22; --n-vis-text: #FBAD60;
+  --n-code-bg: #0c0e11; --n-code-lang: #818898; --n-quote-border: #45475a; --n-quote-text: #D3D7DE;
+  --n-st-disc-bg: #10210f; --n-st-disc-bd: #305a32; --n-st-disc-tx: #9BE963;
+  --n-st-pub-bg: #0c1e2e; --n-st-pub-bd: #2a5276; --n-st-pub-tx: #70B8FF;
+  --n-st-impl-bg: #103021; --n-st-impl-bd: #3a7a4f; --n-st-impl-tx: #5EEDED;
+  --n-st-aband-bg: #2a1416; --n-st-aband-bd: #5a2a30; --n-st-aband-tx: #F47B85;
 }
 
-/* --- fonts: headings = Spectral (serif), body = Inter (sans, set via --body-font) --- */
+/* headings = Spectral (serif), body = Maison Neue (via --body-font) */
 .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6,
 .rfc-hero h1, .index-header h1, .index-content h2 {
   font-family: var(--serif-font);
   letter-spacing: -0.012em;
 }
 
-/* tighten the over-tracked uppercase labels, esp. the "MECATTAF RFCS" kicker */
-.rfc-kicker {
-  letter-spacing: 0.045em;
-  font-size: 0.78rem;
+/* tighten over-tracked uppercase labels, esp. the "MECATTAF RFCS" kicker */
+.rfc-kicker { letter-spacing: 0.045em; font-size: 0.78rem; }
+.list-head > div, .rfc-meta-row dt, .index-search-hint, .rfc-toc-title { letter-spacing: 0.06em; }
+
+/* --- dark = catppuccin-noir. Mirrors site.css gating exactly. --- */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --page-bg: var(--n-page); --paper-bg: var(--n-paper); --panel-bg: var(--n-panel);
+  --paper-border: var(--n-border); --paper-shadow: var(--n-shadow); --rule: var(--n-rule);
+  --ink: var(--n-ink); --muted: var(--n-muted); --faint: var(--n-faint); --prose-lead: var(--n-ink); --search-excerpt: var(--n-muted);
+  --accent: var(--n-accent); --accent-hover: var(--n-accent-h); --selection: var(--n-sel);
+  --pill-bg: var(--n-pill); --inline-code-bg: var(--n-code-inline);
+  --control-bg: var(--n-ctrl); --control-placeholder: var(--n-ctrl-ph); --focus-border: var(--n-focus); --focus-ring: var(--n-focus-ring);
+  --popover-bg: var(--n-pop); --popover-head-bg: var(--n-pop-head); --popover-hover-bg: var(--n-pop-hover); --popover-shadow: var(--n-pop-shadow);
+  --visibility-bg: var(--n-vis-bg); --visibility-border: var(--n-vis-border); --visibility-text: var(--n-vis-text);
+  --code-block-bg: var(--n-code-bg); --code-language: var(--n-code-lang); --blockquote-border: var(--n-quote-border); --blockquote-text: var(--n-quote-text);
+  --tweet-bg: var(--n-code-bg); --tweet-border: var(--n-border); --tweet-avatar-border: var(--n-border); --tweet-avatar-bg: var(--n-pill); --tweet-rule: var(--n-border); --tweet-oembed-bg: var(--n-pop-head);
+  --state-draft-bg: var(--n-pill); --state-draft-border: var(--n-border); --state-draft-text: var(--n-muted);
+  --state-discussion-bg: var(--n-st-disc-bg); --state-discussion-border: var(--n-st-disc-bd); --state-discussion-text: var(--n-st-disc-tx);
+  --state-published-bg: var(--n-st-pub-bg); --state-published-border: var(--n-st-pub-bd); --state-published-text: var(--n-st-pub-tx);
+  --state-implemented-bg: var(--n-st-impl-bg); --state-implemented-border: var(--n-st-impl-bd); --state-implemented-text: var(--n-st-impl-tx);
+  --state-abandoned-bg: var(--n-st-aband-bg); --state-abandoned-border: var(--n-st-aband-bd); --state-abandoned-text: var(--n-st-aband-tx);
+  --index-internal-bg: var(--n-panel); --index-internal-hover-bg: var(--n-pop-hover); --index-internal-border: var(--n-border); --index-internal-ring: var(--n-focus-ring);
+  --index-confidential-bg: #14100f; --index-confidential-hover-bg: #1a1412; --index-confidential-border: #3a2622; --index-confidential-ring: rgba(244,123,133,.18);
 }
-.list-head > div,
-.rfc-meta-row dt,
-.index-search-hint,
-.rfc-toc-title {
-  letter-spacing: 0.06em;
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --page-bg: var(--n-page); --paper-bg: var(--n-paper); --panel-bg: var(--n-panel);
+    --paper-border: var(--n-border); --paper-shadow: var(--n-shadow); --rule: var(--n-rule);
+    --ink: var(--n-ink); --muted: var(--n-muted); --faint: var(--n-faint); --prose-lead: var(--n-ink); --search-excerpt: var(--n-muted);
+    --accent: var(--n-accent); --accent-hover: var(--n-accent-h); --selection: var(--n-sel);
+    --pill-bg: var(--n-pill); --inline-code-bg: var(--n-code-inline);
+    --control-bg: var(--n-ctrl); --control-placeholder: var(--n-ctrl-ph); --focus-border: var(--n-focus); --focus-ring: var(--n-focus-ring);
+    --popover-bg: var(--n-pop); --popover-head-bg: var(--n-pop-head); --popover-hover-bg: var(--n-pop-hover); --popover-shadow: var(--n-pop-shadow);
+    --visibility-bg: var(--n-vis-bg); --visibility-border: var(--n-vis-border); --visibility-text: var(--n-vis-text);
+    --code-block-bg: var(--n-code-bg); --code-language: var(--n-code-lang); --blockquote-border: var(--n-quote-border); --blockquote-text: var(--n-quote-text);
+    --tweet-bg: var(--n-code-bg); --tweet-border: var(--n-border); --tweet-avatar-border: var(--n-border); --tweet-avatar-bg: var(--n-pill); --tweet-rule: var(--n-border); --tweet-oembed-bg: var(--n-pop-head);
+    --state-draft-bg: var(--n-pill); --state-draft-border: var(--n-border); --state-draft-text: var(--n-muted);
+    --state-discussion-bg: var(--n-st-disc-bg); --state-discussion-border: var(--n-st-disc-bd); --state-discussion-text: var(--n-st-disc-tx);
+    --state-published-bg: var(--n-st-pub-bg); --state-published-border: var(--n-st-pub-bd); --state-published-text: var(--n-st-pub-tx);
+    --state-implemented-bg: var(--n-st-impl-bg); --state-implemented-border: var(--n-st-impl-bd); --state-implemented-text: var(--n-st-impl-tx);
+    --state-abandoned-bg: var(--n-st-aband-bg); --state-abandoned-border: var(--n-st-aband-bd); --state-abandoned-text: var(--n-st-aband-tx);
+    --index-internal-bg: var(--n-panel); --index-internal-hover-bg: var(--n-pop-hover); --index-internal-border: var(--n-border); --index-internal-ring: var(--n-focus-ring);
+    --index-confidential-bg: #14100f; --index-confidential-hover-bg: #1a1412; --index-confidential-border: #3a2622; --index-confidential-ring: rgba(244,123,133,.18);
+  }
 }
 
-/* inline code in the palette's peach */
-.prose :not(pre) > code {
-  color: #FBAD60;
-}
+/* inline code in the palette's peach (dark only; light keeps its default) */
+:root[data-theme='dark'] .prose :not(pre) > code { color: #FBAD60; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme]) .prose :not(pre) > code { color: #FBAD60; } }
