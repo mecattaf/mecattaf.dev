@@ -1,8 +1,17 @@
 {
   "name": "mecattaf-dev",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
+  "type": "module",
+  "description": "mecattaf.dev — static RFC-style site (markdown -> HTML).",
   "scripts": {
-    "build": "hugo --minify"
+    "build": "node build.mjs",
+    "serve": "python3 -m http.server -d dist 8000"
+  },
+  "dependencies": {
+    "@shikijs/markdown-it": "^1.24.0",
+    "gray-matter": "^4.0.3",
+    "markdown-it": "^14.1.0",
+    "markdown-it-anchor": "^9.2.0"
   }
 }
