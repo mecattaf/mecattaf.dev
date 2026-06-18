@@ -16,7 +16,7 @@ import Shiki from '@shikijs/markdown-it';
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const CONTENT_DIR = join(ROOT, 'content');
 const DIST = join(ROOT, 'dist');
-const ASSET_VERSION = 'v1';
+const ASSET_VERSION = 'v2';
 
 const SITE = {
   kicker: 'Mecattaf RFCs',
@@ -41,14 +41,9 @@ const fmtDate = (d) => {
   };
 };
 
+// Dark-only (catppuccin-noir): no theme toggle.
 function pageActions() {
-  return `
-    <div class="page-actions">
-      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Theme: auto">
-        <span class="theme-toggle-icon" aria-hidden="true"></span>
-        <span data-theme-toggle-label>Auto</span>
-      </button>
-    </div>`;
+  return '';
 }
 
 function htmlHead({ title, description, canonical, ogType }) {
@@ -70,7 +65,11 @@ function htmlHead({ title, description, canonical, ogType }) {
   <meta name="twitter:title" content="${attr(title)}">
   <meta name="twitter:description" content="${attr(description)}">
   <script>try{const theme=localStorage.getItem("earendil-rfc-theme");if(theme==="light"||theme==="dark"){document.documentElement.dataset.theme=theme;document.documentElement.style.colorScheme=theme;}}catch{}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="/assets/site.css?v=${ASSET_VERSION}">
+  <link rel="stylesheet" href="/assets/theme.css?v=${ASSET_VERSION}">
   <script defer src="/assets/app.js?v=${ASSET_VERSION}"></script>
 </head>
 <body>`;
