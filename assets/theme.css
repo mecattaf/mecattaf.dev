@@ -1,19 +1,13 @@
 /* mecattaf.dev theme overrides — loaded after site.css.
-   Fonts: Maison Neue (body, self-hosted from tomtunguz.com) + Spectral (headings).
+   Fonts: Hanken Grotesk (body — free OFL lookalike for tomtunguz.com's Maison Neue)
+   + Spectral (headings). Both loaded from Google Fonts.
    Light = the base "paper" theme. Dark = catppuccin-noir (from ~/.config/nvim). */
-
-/* --- Maison Neue (self-hosted). Light is the default body face, like tomtunguz.com. --- */
-@font-face { font-family: 'Maison Neue'; src: url('/assets/fonts/MaisonNeue-Light.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Maison Neue'; src: url('/assets/fonts/MaisonNeue-Medium.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Maison Neue'; src: url('/assets/fonts/MaisonNeue-Demi.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Maison Neue'; src: url('/assets/fonts/MaisonNeue-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Maison Neue Mono'; src: url('/assets/fonts/MaisonNeue-Mono.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
 
 /* --- fonts: universal (both themes) --- */
 :root {
-  --body-font: 'Maison Neue', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-  --ui-font: 'Maison Neue', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-  --mono-font: 'Maison Neue Mono', 'JetBrains Mono', ui-monospace, monospace;
+  --body-font: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --ui-font: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --mono-font: 'JetBrains Mono', 'SFMono-Regular', 'SF Mono', ui-monospace, monospace;
   --serif-font: 'Spectral', Georgia, 'Times New Roman', serif;
 
   /* catppuccin-noir tokens (consumed only in dark contexts below) */

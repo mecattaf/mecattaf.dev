@@ -72,7 +72,7 @@ function htmlHead({ title, description, canonical, ogType }) {
   <script>try{const theme=localStorage.getItem("earendil-rfc-theme");if(theme==="light"||theme==="dark"){document.documentElement.dataset.theme=theme;document.documentElement.style.colorScheme=theme;}}catch{}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
   <link rel="stylesheet" href="/assets/site.css?v=${ASSET_VERSION}">
   <link rel="stylesheet" href="/assets/theme.css?v=${ASSET_VERSION}">
   <script defer src="/assets/app.js?v=${ASSET_VERSION}"></script>
