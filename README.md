@@ -66,8 +66,9 @@ This repo is wired for Cloudflare Pages git integration:
 
 ## Photos
 
-Images are hosted on **Cloudflare Images** and referenced by URL in the
-Markdown, e.g. `![](https://imagedelivery.net/<account-hash>/<id>/public)`.
+Images are hosted on **Cloudflare R2** (served at `assets.mecattaf.dev`) and
+referenced by URL in the Markdown, e.g.
+`![](https://assets.mecattaf.dev/images/<name>_<id>.<ext>)`.
 
 ## Migration notes
 

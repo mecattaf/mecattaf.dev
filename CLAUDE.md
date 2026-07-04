@@ -90,8 +90,8 @@ is not indexed.
 - Code fences → **Shiki** dual-theme highlighting (`one-light` / `one-dark-pro`),
   switches with the page theme.
 - Smart typography (curly quotes, em dashes) is on.
-- Images: host on **Cloudflare Images**, reference by URL
-  `![](https://imagedelivery.net/<account-hash>/<id>/public)`.
+- Images: host on **Cloudflare R2** (`assets.mecattaf.dev`), reference by URL
+  `![](https://assets.mecattaf.dev/images/<name>_<id>.<ext>)`.
 
 ## Build / preview / deploy
 

@@ -29,7 +29,7 @@ I experimented with having multiple users interacting with the same Linux deskto
 
 I hacked together a version of Linux that had multi-seating (multiple independent mouse cursors on the desktop that can each control their own programs). When run on a large enough display it can mimic the feeling of Figma's infinite canvas with the full power of desktop apps like web browsers, file explorers and crucially coding tools (like VSCode). This enabled multiple users to interact with the same desktop concurrently. The final step was to run the desktop on a powerful cloud machine and to turn the website browser into a VNC client ([technology from the 90's](https://en.wikipedia.org/wiki/Virtual_Network_Computing)).
 
-![](https://imagedelivery.net/qNOPexKG0LNTBq80SlqDOw/3a4019f7-cbb2-4264-44cd-95346e0b5000/public)
+![](https://assets.mecattaf.dev/images/page2_img1_3a4019f7-cbb2-4264-44cd-95346e0b5000.jpg)
 
 "Figma for developers" was born > Enoki.
 
@@ -97,7 +97,7 @@ Another big problem in retrospect is that we were extremely slow at producing ou
 
 We "missed the technical shift". The ground was basically moving beneath our feet and there was a clear demand for AI tools in the software development space ([Insight Partners analysis](https://www.insightpartners.com/ideas/ai-coding-developer-productivity-software-supply-chain/)). Once we realized that the future of coding was not collaborative-driven but rather AI-driven, we moved away from Enoki, the multiplayer desktop and tried to get into AI. Drawing from our open source backgrounds, we launched Osai, an open source prompt bank. Each prompt came with the OS Public Prompt License. This quickly developed further into a multiplayer version of ChatGPT powered by Liveblocks, a collaborative tool for LLM interactions (which we sold to an AI/Blockchain Software Development Company to extend runway).
 
-![](https://imagedelivery.net/qNOPexKG0LNTBq80SlqDOw/14d877c7-59f2-4894-e263-b7a183d2db00/public)
+![](https://assets.mecattaf.dev/images/page6_img1_14d877c7-59f2-4894-e263-b7a183d2db00.png)
 
 This shift-left pattern had been occurring since my time as an Analyst at Charge Ventures in 2020 when we saw a large increase in the developer tools dealflow. As the graph shows, the ground was indeed moving beneath our feet with the advent of AI and its incredible potential to accelerate code production.
 
@@ -171,14 +171,14 @@ We would like to express our deepest gratitude to our early backers from Antler,
 
 *This postmortem was inspired by [Brett Martin's "Postmortem of a Venture-Backed Startup"](https://medium.com/@brett1211/postmortem-of-a-venture-backed-startup-72c6f8bec7df) and his follow-up ["Scar Tissue"](https://medium.com/@brett1211/scar-tissue-f29ba9f15825), as well as [Martí Gouca's learnings](https://medium.com/@martigouca/learnings-of-not-finding-product-market-fit-in-a-24-b2b-saas-startup-98911c9ee565). I consider Brett my mentor and his candid writing about failure gave me the courage to share this story. You can also hear Brett discuss these experiences on [Danielle Newnham's podcast](https://danielle-newnham-podcast.simplecast.com/episodes/brett-martin-wurAQrht).*
 
-![](https://imagedelivery.net/qNOPexKG0LNTBq80SlqDOw/58812937-a340-4994-9068-cdf7db842400/public)
-![](https://imagedelivery.net/qNOPexKG0LNTBq80SlqDOw/7e3ad068-28a1-444e-7587-7c30d7eb9400/public)
-![](https://imagedelivery.net/qNOPexKG0LNTBq80SlqDOw/6d1b733f-b19c-42d6-db6c-8c1cf2e2d200/public)
-![](https://imagedelivery.net/qNOPexKG0LNTBq80SlqDOw/f61e9a20-1215-44f0-a073-3d6fce66c800/public)
-![](https://imagedelivery.net/qNOPexKG0LNTBq80SlqDOw/a5344e21-7306-4818-dfef-6c0e9d98eb00/public)
+![](https://assets.mecattaf.dev/images/page7_img1_58812937-a340-4994-9068-cdf7db842400.png)
+![](https://assets.mecattaf.dev/images/page8_img1_7e3ad068-28a1-444e-7587-7c30d7eb9400.jpg)
+![](https://assets.mecattaf.dev/images/page8_img2_6d1b733f-b19c-42d6-db6c-8c1cf2e2d200.jpg)
+![](https://assets.mecattaf.dev/images/page9_img1_f61e9a20-1215-44f0-a073-3d6fce66c800.jpg)
+![](https://assets.mecattaf.dev/images/page9_img2_a5344e21-7306-4818-dfef-6c0e9d98eb00.jpg)
 
-![](https://imagedelivery.net/qNOPexKG0LNTBq80SlqDOw/49927eb5-965a-4b13-64c4-4b25e792e600/public)
-![](https://imagedelivery.net/qNOPexKG0LNTBq80SlqDOw/d9cc2f1e-3acc-4def-e303-dd64e64a5000/public)
-![](https://imagedelivery.net/qNOPexKG0LNTBq80SlqDOw/fee24f36-efe0-48a0-da32-df840879d700/public)
-![](https://imagedelivery.net/qNOPexKG0LNTBq80SlqDOw/68dd624e-6793-45a2-abe4-f9cb0ea88300/public)
-![](https://imagedelivery.net/qNOPexKG0LNTBq80SlqDOw/2b9b279b-8afb-49f7-61de-a8c41f004100/public)
+![](https://assets.mecattaf.dev/images/page10_img1_49927eb5-965a-4b13-64c4-4b25e792e600.jpg)
+![](https://assets.mecattaf.dev/images/page11_img1_d9cc2f1e-3acc-4def-e303-dd64e64a5000.jpg)
+![](https://assets.mecattaf.dev/images/page12_img1_fee24f36-efe0-48a0-da32-df840879d700.jpg)
+![](https://assets.mecattaf.dev/images/page13_img1_68dd624e-6793-45a2-abe4-f9cb0ea88300.jpg)
+![](https://assets.mecattaf.dev/images/page14_img1_2b9b279b-8afb-49f7-61de-a8c41f004100.jpg)

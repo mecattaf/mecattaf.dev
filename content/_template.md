@@ -26,6 +26,6 @@ contents on the right. Code blocks get Shiki dual-theme highlighting:
 print("hello")
 ```
 
-Images live on Cloudflare Images; reference them by URL:
+Images live on Cloudflare R2 (assets.mecattaf.dev); reference them by URL:
 
-![](https://imagedelivery.net/<account-hash>/<image-id>/public)
+![](https://assets.mecattaf.dev/images/<name>_<image-id>.<ext>)
