@@ -10,8 +10,9 @@ The site-specific presentation files are:
 
 - `static/palette.css`, which maps mmdoc's color variables to the existing
   mecattaf.dev light and dark palettes.
-- `static/site.css`, which adjusts the search glyph, removes the selected-page
-  left rail, and keeps the Markdown sidebar footer links inline.
+- `static/site.css`, which uses Lucide vectors for the mmdoc toolbar, removes
+  the selected-page left rail, and keeps the Markdown sidebar footer links
+  inline.
 - `content/favicon.svg`, the blue-circle favicon.
 
 ## Write
@@ -60,3 +61,5 @@ Legacy `/0001/` and `/0002/` URLs are retained through `_redirects`.
 
 Content is licensed under [Creative Commons Attribution 3.0](https://creativecommons.org/licenses/by/3.0/us/deed.en_US);
 source is under the [MIT license](https://opensource.org/licenses/mit-license.php).
+The embedded Lucide toolbar vectors retain their upstream notices in
+`THIRD_PARTY_NOTICES.md`.

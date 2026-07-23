@@ -1,17 +1,47 @@
 /* Small presentation corrections layered over stock mmdoc. */
 
-/* Give the magnifier a full-size lens and a clearly separated handle. */
-.search-toggle::before {
-  top: 9px;
-  left: 9px;
-  width: 20px;
-  height: 20px;
+/* Lucide toolbar vectors, embedded as masks so they inherit control color. */
+.sidebar-toggle {
+  --toolbar-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 5h16'/%3E%3Cpath d='M4 12h16'/%3E%3Cpath d='M4 19h16'/%3E%3C/svg%3E");
+}
+
+.search-toggle {
+  --toolbar-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21 21-4.34-4.34'/%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3C/svg%3E");
+}
+
+.theme-toggle {
+  --toolbar-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2v2'/%3E%3Cpath d='M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715'/%3E%3Cpath d='M16 12a4 4 0 0 0-4-4'/%3E%3Cpath d='m19 5-1.256 1.256'/%3E%3Cpath d='M20 12h2'/%3E%3C/svg%3E");
+}
+
+.chapter-previous {
+  --toolbar-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m15 18-6-6 6-6'/%3E%3C/svg%3E");
+}
+
+.chapter-next {
+  --toolbar-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 18 6-6-6-6'/%3E%3C/svg%3E");
+}
+
+.sidebar-toggle::before,
+.search-toggle::before,
+.theme-toggle::before,
+.chapter-previous::before,
+.chapter-next::before {
+  top: 10px;
+  left: 10px;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: currentColor;
+  box-shadow: none;
+  transform: none;
+  -webkit-mask: var(--toolbar-icon) center / contain no-repeat;
+  mask: var(--toolbar-icon) center / contain no-repeat;
 }
 
 .search-toggle::after {
-  top: 26px;
-  left: 26px;
-  width: 10px;
+  display: none;
 }
 
 /* Keep the selected article highlight, without mmdoc's inset left rail. */
