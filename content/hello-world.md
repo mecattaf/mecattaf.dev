@@ -1,5 +1,7 @@
 # Hello World {#hello-world}
 
+2025-07-02
+
 ## Writing Software in 2025
 
 Most linkedin posts I see speak about "vibe coding" - but my friend Zachry Huang prefers the term ["agentic coding"](https://pocketflow.substack.com/p/agentic-coding-the-most-fun-way-to). I agree with his definition: the human designs how the program should behave and the ai implements.
