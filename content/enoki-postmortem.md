@@ -1,23 +1,4 @@
----
-number: "0002"
-title: Enoki Postmortem
-state: Published          # Discussion | Published | Implemented
-visibility: Public
-authors:
-  - name: Thomas Mecattaf
-    email: thomas@mecattaf.dev
-created: 2025-07-03
-updated: 2025-07-03
-labels:
-  - meta
-  - startup
-summary: >-
-  Postmortem of a venture-backed startup: building a "Figma for developers"
-  multiplayer Linux desktop, what I wish I had spent more (and less) time on,
-  missing the AI shift, and what I know now.
----
-
-# Postmortem of a Venture-Backed Startup
+# Postmortem of a Venture-Backed Startup {#enoki-postmortem}
 
 As I write this, I am in the process of officially closing Enoki's corporation, marking the end of my first startup. Before diving into the lessons learned, I want to reminisce a little on the first days of Enoki.
 
