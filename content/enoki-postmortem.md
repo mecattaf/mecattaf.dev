@@ -1,5 +1,7 @@
 # Postmortem of a Venture-Backed Startup {#enoki-postmortem}
 
+2025-07-03
+
 As I write this, I am in the process of officially closing Enoki's corporation, marking the end of my first startup. Before diving into the lessons learned, I want to reminisce a little on the first days of Enoki.
 
 ## The Idea Seemed So Obvious
