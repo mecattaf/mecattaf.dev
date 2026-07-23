@@ -1,0 +1,30 @@
+/* The only visual override to stock mmdoc: mecattaf.dev's existing palette. */
+:root {
+  --light_background: #efebe3;
+  --light_foreground: #201b17;
+  --light_surface: #fbf8f2;
+  --light_surface-muted: #f6f1e8;
+  --light_border: #ddd5c8;
+  --light_muted: #6f675e;
+  --light_accent: #445258;
+  --light_accent-soft: #dfd6ca;
+  --light_code: #f4efe6;
+  --light_green: #e1e9d6;
+  --light_orange: #f7f0dd;
+  --light_yellow: #f7f0dd;
+  --light_red: #efdcd5;
+
+  --dark_background: #000000;
+  --dark_foreground: #eaecf0;
+  --dark_surface: #060708;
+  --dark_surface-muted: #0e1013;
+  --dark_border: #20242b;
+  --dark_muted: #818898;
+  --dark_accent: #70b8ff;
+  --dark_accent-soft: #1f3a55;
+  --dark_code: #0c0e11;
+  --dark_green: #10210f;
+  --dark_orange: #18130c;
+  --dark_yellow: #18130c;
+  --dark_red: #2a1416;
+}

@@ -1,0 +1,79 @@
+/* Small presentation corrections layered over stock mmdoc. */
+
+/* Lucide toolbar vectors, embedded as masks so they inherit control color. */
+.sidebar-toggle {
+  --toolbar-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 5h16'/%3E%3Cpath d='M4 12h16'/%3E%3Cpath d='M4 19h16'/%3E%3C/svg%3E");
+}
+
+.search-toggle {
+  --toolbar-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21 21-4.34-4.34'/%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3C/svg%3E");
+}
+
+.theme-toggle {
+  --toolbar-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 2a10 10 0 0 0 0 20Z' fill='black' stroke='none'/%3E%3C/svg%3E");
+}
+
+.chapter-previous {
+  --toolbar-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m15 18-6-6 6-6'/%3E%3C/svg%3E");
+}
+
+.chapter-next {
+  --toolbar-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 18 6-6-6-6'/%3E%3C/svg%3E");
+}
+
+.sidebar-toggle::before,
+.search-toggle::before,
+.theme-toggle::before,
+.chapter-previous::before,
+.chapter-next::before {
+  top: 10px;
+  left: 10px;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: currentColor;
+  box-shadow: none;
+  transform: none;
+  -webkit-mask: var(--toolbar-icon) center / contain no-repeat;
+  mask: var(--toolbar-icon) center / contain no-repeat;
+}
+
+.search-toggle::after {
+  display: none;
+}
+
+/* Keep the selected article highlight, without mmdoc's inset left rail. */
+nav.sidebar a[aria-current="page"] {
+  box-shadow: none;
+}
+
+/* Ryan's footer is Markdown in toc.md; keep its links inline in modern mmdoc. */
+nav.sidebar > ul ~ p {
+  margin: 1.25rem 0.65rem 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+nav.sidebar > ul ~ p + p {
+  margin-top: 0.35rem;
+}
+
+nav.sidebar > ul ~ p a {
+  display: inline;
+  padding: 0;
+  border-radius: 0;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--border);
+  text-underline-offset: 0.15em;
+}
+
+nav.sidebar > ul ~ p a:hover {
+  color: var(--accent);
+  background: transparent;
+}

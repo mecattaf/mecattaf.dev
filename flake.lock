@@ -1,0 +1,69 @@
+{
+  "nodes": {
+    "mmdoc": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1784420270,
+        "narHash": "sha256-N+lE85tR/XUstkFO+sQ+jEaH+QxuJr6whJlrULeh+1k=",
+        "owner": "ryantm",
+        "repo": "mmdoc",
+        "rev": "75283c179263202e7a0c9945deaf2ee0777d1166",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ryantm",
+        "repo": "mmdoc",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1780145889,
+        "narHash": "sha256-md0zn0RnwNvPyASas1yG5YUuwQ4ALA6ucL50l0DvqCo=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "8c50a710ddca43d7a530fb805ad55bde8d0141c5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "26.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "mmdoc": "mmdoc",
+        "nixpkgs": [
+          "mmdoc",
+          "nixpkgs"
+        ],
+        "systems": [
+          "mmdoc",
+          "systems"
+        ]
+      }
+    },
+    "systems": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

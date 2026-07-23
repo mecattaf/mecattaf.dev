@@ -1,20 +1,4 @@
----
-number: "0001"
-title: Hello World
-state: Published          # Discussion | Published | Implemented
-visibility: Public
-authors:
-  - name: Thomas Mecattaf
-    email: thomas@mecattaf.dev
-created: 2025-07-02
-updated: 2025-07-02
-labels:
-  - meta
-summary: >-
-  Writing software in 2025: agentic coding, the collapsing barrier to entry, and
-  introducing AIcademy — heuristics for repositories that are AI-maintainable by
-  default.
----
+# Hello World {#hello-world}
 
 ## Writing Software in 2025
 
