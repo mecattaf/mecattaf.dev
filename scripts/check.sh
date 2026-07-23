@@ -13,9 +13,8 @@ test -f "$repo_root/dist/_redirects"
 test ! -e "$repo_root/content/home.md"
 test ! -e "$repo_root/dist/hello-world"
 
-grep -q "thomas@mecattaf.dev" "$repo_root/dist/index.html"
-grep -q "Questions or feedback?" "$repo_root/dist/index.html"
-grep -q "https://github.com/ryantm/mmdoc" "$repo_root/dist/index.html"
+grep -q '<p><a href="mailto:thomas@mecattaf.dev">thomas@mecattaf.dev</a></p>' "$repo_root/dist/index.html"
+grep -q '<p>built with <a href="https://github.com/ryantm/mmdoc">mmdoc</a></p>' "$repo_root/dist/index.html"
 grep -q "Hello World" "$repo_root/dist/index.html"
 grep -q "<h2>mecattaf.dev</h2>" "$repo_root/dist/index.html"
 grep -q "Postmortem of a Venture-Backed Startup" "$repo_root/dist/enoki-postmortem/index.html"
@@ -32,7 +31,10 @@ grep -q "M4 5h16" "$repo_root/dist/site.css"
 grep -q "m21 21-4.34-4.34" "$repo_root/dist/site.css"
 grep -q "circle cx='12' cy='12' r='10'" "$repo_root/dist/site.css"
 grep -q "M12 2a10 10 0 0 0 0 20Z" "$repo_root/dist/site.css"
-grep -q 'transform: rotate(45deg)' "$repo_root/dist/site.css"
+if grep -q 'rotate(' "$repo_root/dist/site.css"; then
+  printf 'theme divider must remain vertical\n' >&2
+  exit 1
+fi
 grep -q "m15 18-6-6 6-6" "$repo_root/dist/site.css"
 grep -q "m9 18 6-6-6-6" "$repo_root/dist/site.css"
 grep -q 'mask: var(--toolbar-icon)' "$repo_root/dist/site.css"

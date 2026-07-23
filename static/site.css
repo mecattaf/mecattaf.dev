@@ -40,10 +40,6 @@
   mask: var(--toolbar-icon) center / contain no-repeat;
 }
 
-.theme-toggle::before {
-  transform: rotate(45deg);
-}
-
 .search-toggle::after {
   display: none;
 }
