@@ -1,9 +1,10 @@
 # Authoring mecattaf.dev
 
-This site is stock [mmdoc](https://github.com/ryantm/mmdoc) with two visual
-carryovers: `static/palette.css` and `content/favicon.svg`. Do not add custom
-layout, components, JavaScript, typography, or navigation. Improvements to
-those concerns belong upstream in mmdoc.
+This site is stock [mmdoc](https://github.com/ryantm/mmdoc) with the existing
+palette and favicon plus narrowly scoped presentation fixes in
+`static/site.css`. Do not add custom layout, components, JavaScript,
+typography, or navigation. Improvements to those concerns belong upstream in
+mmdoc.
 
 ## Add a page
 

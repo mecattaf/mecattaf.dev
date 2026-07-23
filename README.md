@@ -3,12 +3,15 @@
 Thomas Mecattaf's personal site, generated with
 [mmdoc](https://github.com/ryantm/mmdoc). The generated interface is stock
 mmdoc: its layout, navigation, search, typography, responsive behavior, and
-light/dark theme handling all come directly from upstream.
+light/dark theme handling all come directly from upstream. A small companion
+stylesheet contains only the presentation corrections requested for this site.
 
-The only visual site-specific files are:
+The site-specific presentation files are:
 
 - `static/palette.css`, which maps mmdoc's color variables to the existing
   mecattaf.dev light and dark palettes.
+- `static/site.css`, which adjusts the search glyph, removes the selected-page
+  left rail, and keeps the Markdown sidebar footer links inline.
 - `content/favicon.svg`, the blue-circle favicon.
 
 ## Write

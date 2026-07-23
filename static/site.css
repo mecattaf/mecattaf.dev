@@ -1,0 +1,49 @@
+/* Small presentation corrections layered over stock mmdoc. */
+
+/* Give the magnifier a full-size lens and a clearly separated handle. */
+.search-toggle::before {
+  top: 9px;
+  left: 9px;
+  width: 20px;
+  height: 20px;
+}
+
+.search-toggle::after {
+  top: 26px;
+  left: 26px;
+  width: 10px;
+}
+
+/* Keep the selected article highlight, without mmdoc's inset left rail. */
+nav.sidebar a[aria-current="page"] {
+  box-shadow: none;
+}
+
+/* Ryan's footer is Markdown in toc.md; keep its links inline in modern mmdoc. */
+nav.sidebar > ul ~ p {
+  margin: 1.25rem 0.65rem 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+nav.sidebar > ul ~ p + p {
+  margin-top: 0.35rem;
+}
+
+nav.sidebar > ul ~ p a {
+  display: inline;
+  padding: 0;
+  border-radius: 0;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--border);
+  text-underline-offset: 0.15em;
+}
+
+nav.sidebar > ul ~ p a:hover {
+  color: var(--accent);
+  background: transparent;
+}

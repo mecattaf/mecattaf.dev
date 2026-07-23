@@ -19,10 +19,12 @@ trap 'rm -rf -- "$build_root"' EXIT
 rm -rf -- "$dist_dir"
 cp -R "$build_root/multi" "$dist_dir"
 cp "$repo_root/static/palette.css" "$dist_dir/palette.css"
+cp "$repo_root/static/site.css" "$dist_dir/site.css"
 cp "$repo_root/static/_redirects" "$dist_dir/_redirects"
 
 while IFS= read -r -d '' page; do
   sed -i "/mmdoc[^']*\\.css/a\\    <link rel='stylesheet' href='palette.css'>" "$page"
+  sed -i "/palette\\.css/a\\    <link rel='stylesheet' href='site.css'>" "$page"
 done < <(find "$dist_dir" -type f -name index.html -print0)
 
 printf 'mmdoc site -> %s\n' "$dist_dir"
