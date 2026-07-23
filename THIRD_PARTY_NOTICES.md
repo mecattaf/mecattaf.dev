@@ -2,10 +2,11 @@
 
 ## Lucide toolbar icons
 
-The Menu, Search, Sun Moon, Chevron Left, and Chevron Right vectors embedded
-in `static/site.css` come from [Lucide](https://lucide.dev/icons/). Lucide
-includes icons under the ISC license and Feather-derived icons under the MIT
-license, so both notices are reproduced here.
+The Menu, Search, Circle, Chevron Left, and Chevron Right vectors embedded in
+`static/site.css` come from [Lucide](https://lucide.dev/icons/). The Circle is
+extended with a custom half fill for the theme toggle. Lucide includes icons
+under the ISC license and Feather-derived icons under the MIT license, so both
+notices are reproduced here.
 
 ISC License
 
