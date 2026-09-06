@@ -6,11 +6,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1784420270,
-        "narHash": "sha256-N+lE85tR/XUstkFO+sQ+jEaH+QxuJr6whJlrULeh+1k=",
+        "lastModified": 1788632859,
+        "narHash": "sha256-aq/+/geFENuDHk5yu6eFw5/TKpAANMO0kVcdq8uSW/c=",
         "owner": "ryantm",
         "repo": "mmdoc",
-        "rev": "75283c179263202e7a0c9945deaf2ee0777d1166",
+        "rev": "f9f360bb2565a6bf1c01e63a3d68109b6dd00257",
         "type": "github"
       },
       "original": {
